@@ -2,10 +2,52 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
+      xmlns:jsf="http://xmlns.jcp.org/jsf"> 
 
-<h:head></h:head> 
+<h:head>Alta de Movimientos</h:head> 
 <body> 
+
+<h:form>
+<br />
+
+
+<h:panelGrid id="grid"  name="Grid" columns="4">
+    <f:facet name="header">
+        <h:outputText value="Nombre:"></h:outputText><h:inputText value="" />
+    </f:facet>
+     
+    <h:outputText value="Motivo Baja:" />
+    <h:selectOneMenu id="movtip" value="#{mov.almacenes}">
+ 		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+                        <f:selectItems value="#{mov.Almas}" />
+
+		</h:selectOneMenu> 
+     
+    <h:outputText value="Almacenamiento:" />
+    <h:selectOneMenu id="movalma" value="#{mov.alma}">
+ 		<f:selectItem itemLabel="Perdida"/>
+        <f:selectItem itemLabel="Modifiación"/>
+
+		</h:selectOneMenu> 
+     
+    <h:outputText value="Cantidad a Bajar:" />
+    <h:inputText />
+     
+    <h:outputText value="Stock Total:" />
+    <h:outputText value="24" />
+    
+    <h:outputLabel value="Fecha" />
+    
+</h:panelGrid>
+</h:form>
+
+
 
 </body> 
 </html>
