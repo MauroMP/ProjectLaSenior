@@ -40,19 +40,20 @@
     <h:outputText value="24" />
     
     <h:outputLabel value="Fecha" />
-    <h:inputText value="Fecha" onClick = "cal" />
-    <rich:calendar id = "cal" value="#{calendar.selectedDate}"
-                        locale="#{calendar.locale}"
-                        popup="#{calendar.popup}"
-                        datePattern="#{calendar.pattern}"                      
-                        cellWidth="24px" cellHeight="22px" style="width:200px"/>
     
     
 </h:panelGrid>
 
 <h:commandButton action="#{mov.Imprimir}" value="Guardar" />
 </h:form>
-
+<h:form>
+		<h:panelGrid columns="2" cellspacing="1">
+				<p:outputLabel>Calendario</p:outputLabel>
+				<p:calendar value="#{calendar.date}"></p:calendar>
+				
+		</h:panelGrid>
+		<p:commandButton value="Enviar" action="#{calendar.onClick(calendar.date)}"></p:commandButton>
+	</h:form>
 
 
 </body> 
