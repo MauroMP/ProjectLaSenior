@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" 
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rich="http://richfaces.org/rich"> 
+
+<h:head>
+<title>Alta de Producto</title>
+</h:head> 
+<h:body> 
+
+<img src="C:\Imagenes\logo.PNG" alt="Imagen del Proyecto 1" width="150" height="90"/>
+<h1>Gestión de Almacenes</h1>
+<a href="#inicio">Inicio</a> / <a href="#inicio">Atras</a>
+<h:form>
+	<h:panelGrid column="4">
+		<h:column>
+			<h:outputLabel value="Familia" />
+			
+			<p:selectOneMenu id="ListFam" value="#{fami.fam}">
+				<f:selectItem itemLabel="Select..." noSelectionOption="true"/>
+					<f:selectItems  value="#{fami.famn}"/>
+			</p:selectOneMenu>
+			
+		</h:column>
+		
+		<h:column>
+			<h:outputLabel value="Stock Minimo" />
+			<h:inputText value="" />
+			<h:outputLabel value="Stock Total" />
+			<h:inputText value="" />
+		</h:column>
+		
+		
+		<h:outputLabel value="Segmentación"/>
+		<h:selectOneRadio value="SI" >
+		 	<f:selectItem itemValue = "1" itemLabel = "SI" /> 
+ 		</h:selectOneRadio> 
+		<h:outputLabel value="Estiba" />
+		<h:selectOneRadio value="SI" >
+			<f:selectItem itemValue = "1" itemLabel = "SI" /> 
+ 		</h:selectOneRadio> 
+		
+		<h:column>
+			<h:outputLabel value="Peso" />
+			<h:inputText value="" />
+			<h:outputLabel value="Kg/Lt" />
+			<h:outputLabel value="Volumen:" />
+			<h:inputText value="" />
+			<h:outputLabel value="Mts cúbicos" />
+		</h:column>
+		
+		<h:column>
+			<h:outputLabel value="Lote:" />
+			<h:inputText value="" />
+			<h:outputLabel value="Precio:" />
+			<h:inputText value="" />
+
+		</h:column>
+		
+	</h:panelGrid>
+	
+	
+    <h:panelGrid column="1">
+		<h:column>
+			<h:outputLabel value="Fecha Elaboración:" />
+			
+		</h:column>
+	</h:panelGrid>
+	
+	<br/><br/>
+	<h:commandButton action="Confirmar" value="Confirmar" />
+	<h:commandButton action="Cancelar" value="Cancelar" />
+	
+	
+</h:form>
+
+
+
+
+</h:body> 
+</html>

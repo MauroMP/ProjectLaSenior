@@ -1,6 +1,7 @@
 package com.services;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,8 +10,6 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Date;
-
 
 
 import javax.enterprise.context.SessionScoped;
@@ -18,59 +17,49 @@ import javax.inject.Named;
 
 
 
-
 import com.google.gson.Gson;
 
 
 
-@Named("mov")
+
+@Named("fami")
 @SessionScoped
-public class movimientos implements Serializable {
+
+public class Familia implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	private String familias;
+	private String[] famnom;
+	private String fam;
+	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/obtnom";
 
-	
-	
-	private String almacenes;
-	private String[] almas;
-	private String tipo;
-	private String producto;
-	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/mov/obtnom";
-	private String url1 = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/obtnom";
-
-	
-	public String getTipo() {
-		return tipo;
+	public String getFamilia() {
+		return familias;
 	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	
+	public void setFamilia(String familias) {
+		this.familias = familias;
 	}
 	
 	
-	public String getAlmacenes() {
-		return almacenes;
+	
+	public String getFam() {
+		return fam;
 	}
 
-	public void setAlmacenes(String almacenes) {
-		this.almacenes = almacenes;
+	public void setFam(String fam) {
+		this.fam = fam;
 	}
 
+	
+	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	
-	
-
-	public String getProducto() {
-		return producto;
-	}
-
-	public void setProducto(String producto) {
-		this.producto = producto;
 	}
 
 	private static String readAll(Reader rd) throws IOException {
@@ -78,13 +67,12 @@ public class movimientos implements Serializable {
 	    int cp;
 	    while ((cp = rd.read()) != -1) {
 	      sb.append((char) cp);
-	      
 	    }
 	    return sb.toString();
-	  }
-public static String readJsonFromUrl(String url){
-		
-	    InputStream is = null;
+	}   
+
+	public static String readJsonFromUrl(String url)  {
+		InputStream is = null;
 		try {
 			is = new URL(url).openStream();
 		} catch (MalformedURLException e) {
@@ -112,27 +100,23 @@ public static String readJsonFromUrl(String url){
 			e.printStackTrace();
 		}
 	    }
-	  }
-	
+	}
 	
 	public String[] leerjson(String url){
-	Gson gson = new Gson();
-	String[] almace = gson.fromJson(readJsonFromUrl(url), String[].class);
-	return almace;
-	}
+		
+		Gson gson = new Gson();
+		String[] fano = gson.fromJson(readJsonFromUrl(url), String[].class);
+		return fano;
 
-	public String[] getAlmas (){
-		
-		almas = leerjson(url);
-		
-		return almas;
 	}
 	
-	public String[] getProds () {
-		String [] prods = leerjson(url1);
-		return prods;
-	}
-	
+	public String[] getFamn(){
 		
+		famnom = leerjson(url);
+		return famnom;
+	}
+		
+	
+	
 
 }

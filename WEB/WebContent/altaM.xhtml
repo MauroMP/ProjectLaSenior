@@ -11,47 +11,68 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:rich="http://richfaces.org/rich"> 
 
-<h:head>Alta de Movimientos</h:head> 
+<h:head></h:head> 
 <body> 
 
 <h:form>
 <br />
 
 
-<h:panelGrid id="grid"  name="Grid" columns="4">
+<p:panelGrid id="grid"  name="Grid" columns="4">
     <f:facet name="header">
-        <h:outputText value="Nombre:"></h:outputText>
+        <h:outputText value="Alta de Movimiento"></h:outputText>
     </f:facet>
      
-    <h:outputText value="Motivo Baja:" />
-    <h:selectOneMenu id="movtip" value="#{mov.almacenes}">
+     <p:column>
+    <h:outputText value="Motivo Baja: " />
+    <p:selectOneMenu id="movtip" value="#={mov.tipo}" >
+    <f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+     <f:selectItem itemLabel="Perdida" itemValue="Perdida" />
+     <f:selectItem itemLabel="Movimiento" itemValue="Movimiento" />
+    </p:selectOneMenu>
+    </p:column>
+    
+    <p:column> 
+    <h:outputText value="Almacenamiento: " />
+   <p:selectOneMenu id="movalma" value="#{mov.almacenes}">
  		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
                         <f:selectItems value="#{mov.almas}" />
 
-		</h:selectOneMenu> 
+		</p:selectOneMenu> 
+     </p:column>
      
-    <h:outputText value="Almacenamiento:" />
-   
-     
-    <h:outputText value="Cantidad a Bajar:" />
-    <h:inputText />
-     
-    <h:outputText value="Stock Total:" />
-    <h:outputText value="24" />
-    
-    <h:outputLabel value="Fecha" />
-    
-    
-</h:panelGrid>
+     <p:column>
+     <h:outputText value="Producto: " />
+   <p:selectOneMenu id="movprod" value="#{mov.producto}">
+ 		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+                        <f:selectItems value="#{mov.prods}" />
 
-<h:commandButton action="#{mov.Imprimir}" value="Guardar" />
+		</p:selectOneMenu> 
+		</p:column>
+		<p:column>
+    <h:outputText value="Cantidad a Bajar: " />
+    <p:inputText />
+     </p:column>
+     
+     <p:column>
+    <h:outputText value="Stock Total: " />
+    <h:outputText value="24" />
+    </p:column>
+    
+    <p:column>
+    <p:outputLabel value="Fecha: " />
+   	<p:calendar value="#{calendar.date}"></p:calendar>
+    </p:column>
+    
+</p:panelGrid>
+
+<p:commandButton action="#{mov.Imprimir}" value="Guardar" />
 </h:form>
 <h:form>
-		<h:panelGrid columns="2" cellspacing="1">
-				<p:outputLabel>Calendario</p:outputLabel>
-				<p:calendar value="#{calendar.date}"></p:calendar>
+		<p:panelGrid columns="2" cellspacing="1">
 				
-		</h:panelGrid>
+				
+		</p:panelGrid>
 		<p:commandButton value="Enviar" action="#{calendar.onClick(calendar.date)}"></p:commandButton>
 	</h:form>
 
