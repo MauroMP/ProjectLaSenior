@@ -6,16 +6,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.List;
+import java.util.Date;
+
 
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
+
+
+import com.google.gson.Gson;
+
+
 
 @Named("mov")
 @SessionScoped
@@ -25,24 +31,40 @@ public class movimientos implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	String almacenes;
-	String almas;
-	String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/mov/obtnom";
 
+	
+	
+	private String almacenes;
+	private String[] almas;
+	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/mov/obtnom";
+	private Date selectDate;
+	private boolean popup = true;
+ 
+	
+	
 	public String getAlmacenes() {
 		return almacenes;
 	}
-
-
-
 
 	public void setAlmacenes(String almacenes) {
 		this.almacenes = almacenes;
 	}
 
+	public Date getSelectDate() {
+		return selectDate;
+	}
 
+	public void setSelectDate(Date selectDate) {
+		this.selectDate = selectDate;
+	}
 
+	public boolean isPopup() {
+		return popup;
+	}
+
+	public void setPopup(boolean popup) {
+		this.popup = popup;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -53,37 +75,65 @@ public class movimientos implements Serializable {
 	    int cp;
 	    while ((cp = rd.read()) != -1) {
 	      sb.append((char) cp);
+	      
 	    }
 	    return sb.toString();
 	  }
-	
-	public static String readJsonFromUrl(String url) throws IOException, JSONException {
-	    InputStream is = new URL(url).openStream();
-	    try {
-	      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-	      String jsonText = readAll(rd);
-	      JSONObject json = new JSONObject(jsonText);
-	      String envio = json.toString();
-	      System.out.println(envio);
-	      return envio;
-	    } finally {
-	      is.close();
-	    }
-	  }
-
-
-	public String getAlmas (){
+public static String readJsonFromUrl(String url){
+		
+	    InputStream is = null;
 		try {
-			almas = readJsonFromUrl(url);
-		} catch (JSONException e) {
+			is = new URL(url).openStream();
+		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    try {
+	      BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+	      String jsonText = null;
+		try {
+			jsonText = readAll(rd);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	     
+	      return jsonText;
+	    } finally {
+	      try {
+			is.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    }
+	  }
+	
+	
+	public String[] leerjson(String url){
+	Gson gson = new Gson();
+	String[] almace = gson.fromJson(readJsonFromUrl(url), String[].class);
+	return almace;
+	}
+
+	public String[] getAlmas (){
+		
+		//List<String> almasL = new ArrayList<String>();
+		
+			almas = leerjson(url);
+		
 		return almas;
 	}
 	
+	public void Imprimir () {
+		
+			
+			System.out.println(url);
+	
+		System.out.println(almacenes);
+	
+	}
 
 }

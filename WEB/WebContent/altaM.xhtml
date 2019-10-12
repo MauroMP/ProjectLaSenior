@@ -8,7 +8,8 @@
       xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:cc="http://xmlns.jcp.org/jsf/composite"
       xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
-      xmlns:jsf="http://xmlns.jcp.org/jsf"> 
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rich="http://richfaces.org/rich"> 
 
 <h:head>Alta de Movimientos</h:head> 
 <body> 
@@ -19,22 +20,18 @@
 
 <h:panelGrid id="grid"  name="Grid" columns="4">
     <f:facet name="header">
-        <h:outputText value="Nombre:"></h:outputText><h:inputText value="" />
+        <h:outputText value="Nombre:"></h:outputText>
     </f:facet>
      
     <h:outputText value="Motivo Baja:" />
     <h:selectOneMenu id="movtip" value="#{mov.almacenes}">
  		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
-                        <f:selectItems value="#{mov.Almas}" />
+                        <f:selectItems value="#{mov.almas}" />
 
 		</h:selectOneMenu> 
      
     <h:outputText value="Almacenamiento:" />
-    <h:selectOneMenu id="movalma" value="#{mov.alma}">
- 		<f:selectItem itemLabel="Perdida"/>
-        <f:selectItem itemLabel="Modifiación"/>
-
-		</h:selectOneMenu> 
+   
      
     <h:outputText value="Cantidad a Bajar:" />
     <h:inputText />
@@ -43,8 +40,17 @@
     <h:outputText value="24" />
     
     <h:outputLabel value="Fecha" />
+    <h:inputText value="Fecha" onClick = "cal" />
+    <rich:calendar id = "cal" value="#{calendar.selectedDate}"
+                        locale="#{calendar.locale}"
+                        popup="#{calendar.popup}"
+                        datePattern="#{calendar.pattern}"                      
+                        cellWidth="24px" cellHeight="22px" style="width:200px"/>
+    
     
 </h:panelGrid>
+
+<h:commandButton action="#{mov.Imprimir}" value="Guardar" />
 </h:form>
 
 
