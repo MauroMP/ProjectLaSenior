@@ -18,7 +18,7 @@
 <br />
 
 
-<p:panelGrid id="grid"  name="Grid" columns="4">
+<p:panelGrid id="gridAlta"  name="Grid" columns="4">
     <f:facet name="header">
         <h:outputText value="Alta de Movimiento"></h:outputText>
     </f:facet>
@@ -43,7 +43,7 @@
      
      <p:column>
      <h:outputText value="Producto: " />
-   <p:selectOneMenu id="movprod" value="#{mov.producto}">
+   <p:selectOneMenu id="movprod" value="#{mov.producto}" onclick="#{mov.stockprod}">
  		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
                         <f:selectItems value="#{mov.prods}" />
 
@@ -51,13 +51,9 @@
 		</p:column>
 		<p:column>
     <h:outputText value="Cantidad a Bajar: " />
-    <p:inputText />
+    <p:inputText value="#{mov.cantb}"/>
      </p:column>
-     
-     <p:column>
-    <h:outputText value="Stock Total: " />
-    <h:outputText value="24" />
-    </p:column>
+    
     
     <p:column>
     <p:outputLabel value="Fecha: " />
@@ -66,15 +62,12 @@
     
 </p:panelGrid>
 
-<p:commandButton action="#{mov.Imprimir}" value="Guardar" />
+<p:commandButton action="#{mov.Comprobar}" value="Comprobar" />
 </h:form>
-<h:form>
-		<p:panelGrid columns="2" cellspacing="1">
-				
-				
-		</p:panelGrid>
-		<p:commandButton value="Enviar" action="#{calendar.onClick(calendar.date)}"></p:commandButton>
-	</h:form>
+<br/>
+<br/>
+<br/>
+
 
 
 </body> 

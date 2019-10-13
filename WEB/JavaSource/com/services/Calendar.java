@@ -16,10 +16,7 @@ public class Calendar implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Date date;
 	
-	public void onClick(Date date) {
-		SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/YYYY");
-		System.out.println(dateFormat.format(date));
-	}
+	
 
 	public Date getDate() {
 		return date;
@@ -29,6 +26,11 @@ public class Calendar implements Serializable{
 		this.date = date;
 	}
 	
-	
+	public String getFecha () {
+		SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/YYYY");
+		System.out.println(dateFormat.format(date));
+		String fecha = dateFormat.format(date);
+		return fecha;
+	}
 
 }

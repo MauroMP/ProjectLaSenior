@@ -2,10 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head></h:head> 
 <body> 
 
+<p:dataTable var="movi" value="#{mov.movs}">
+    <p:column headerText="Id">
+        <h:outputText value="#{movimiento.movId}" />
+    </p:column>
+ 
+    <p:column headerText="Fecha">
+        <h:outputText value="#{movimiento.movFecha}" />
+    </p:column>
+ 
+    <p:column headerText="Tipo">
+        <h:outputText value="#{movimiento.movTipo}" />
+    </p:column>
+ 
+    <p:column headerText="Costo">
+        <h:outputText value="#{movimiento.movCosto}" />
+    </p:column>
+</p:dataTable>
+
+
+<p:panelGrid id="gridMod"  name="GridM" columns="4">
+<f:facet name="header">
+        <h:outputText value="Modificar Movimiento"></h:outputText>
+    </f:facet>
+<p:outputLabel value="Fecha: " />
+   	<p:calendar value="#{calendar.date}"></p:calendar>
+
+</p:panelGrid>
 </body> 
 </html>

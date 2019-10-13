@@ -9,16 +9,15 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Date;
+
 
 
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.component.html.HtmlOutputText;
 import javax.inject.Named;
 
-
-
-
+import com.dominio.Movimiento;
 import com.google.gson.Gson;
 
 
@@ -38,9 +37,11 @@ public class movimientos implements Serializable {
 	private String[] almas;
 	private String tipo;
 	private String producto;
-	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/mov/obtnom";
-	private String url1 = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/obtnom";
-
+	private String cantb;
+	private String sp;
+	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/mov/";
+	private String url1 = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/";
+    private HtmlOutputText sp1 = new HtmlOutputText();
 	
 	public String getTipo() {
 		return tipo;
@@ -51,6 +52,15 @@ public class movimientos implements Serializable {
 	}
 	
 	
+	
+	public String getCantb() {
+		return cantb;
+	}
+
+	public void setCantb(String cantb) {
+		this.cantb = cantb;
+	}
+
 	public String getAlmacenes() {
 		return almacenes;
 	}
@@ -65,12 +75,30 @@ public class movimientos implements Serializable {
 	
 	
 
+	public HtmlOutputText getSp1() {
+		return sp1;
+	}
+
+	public void setSp1(HtmlOutputText sp1) {
+		this.sp1 = sp1;
+	}
+
 	public String getProducto() {
 		return producto;
 	}
 
 	public void setProducto(String producto) {
 		this.producto = producto;
+	}
+	
+	
+
+	public String getSp() {
+		return sp;
+	}
+
+	public void setSp(String sp) {
+		this.sp = sp;
 	}
 
 	private static String readAll(Reader rd) throws IOException {
@@ -82,7 +110,7 @@ public class movimientos implements Serializable {
 	    }
 	    return sb.toString();
 	  }
-public static String readJsonFromUrl(String url){
+	public static String readJsonFromUrl(String url){
 		
 	    InputStream is = null;
 		try {
@@ -113,26 +141,45 @@ public static String readJsonFromUrl(String url){
 		}
 	    }
 	  }
-	
-	
 	public String[] leerjson(String url){
 	Gson gson = new Gson();
 	String[] almace = gson.fromJson(readJsonFromUrl(url), String[].class);
 	return almace;
 	}
+	
+	public Movimiento[] getMovs(){
+		Gson gson = new Gson();
+		Movimiento[] movs = gson.fromJson(readJsonFromUrl(url+"movs"), Movimiento[].class);
+		return movs;
+		}
 
 	public String[] getAlmas (){
 		
-		almas = leerjson(url);
+		almas = leerjson(url+"obtnom");
 		
 		return almas;
 	}
 	
 	public String[] getProds () {
-		String [] prods = leerjson(url1);
+		String [] prods = leerjson(url1+"obtnom");
 		return prods;
 	}
 	
+	public String getStockprod() {
 		
+		String [] prodstock = leerjson(url1+"stockprod/"+producto);
+		 String sp1 = prodstock[0];
+		return sp1;
+	}
+	
+	public String Comprobar () {
+		
+		sp=getStockprod();
+		
+		
+		return "ConfirmarMov.xhtml";
+	}
+	
+	
 
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head> 
+<body> 
+<h:form>
+
+<p:panelGrid id="gridC"  name="GridC" columns="4">
+    <f:facet name="header">
+        <h:outputText value="Confirmar Alta de Movimiento"></h:outputText>
+    </f:facet>
+<p:column>
+    <h:outputText value="Motivo Baja: " />
+    <h:outputText value="#{mov.tipo}" />
+    </p:column>
+    
+    <p:column> 
+    <h:outputText value="Almacenamiento: " />
+   <h:outputText value="#{mov.almacenes}"/>
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Producto: " />
+   <h:outputText value="#{mov.producto}" />
+		</p:column>
+		<p:column>
+    <h:outputText value="Cantidad a Bajar: " />
+    <h:outputText value="#{mov.cantb}    " />
+    <h:outputText value="Stock Antes de Bajar: " />
+    <h:outputText value="#{mov.sp}" />
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Fecha: " />
+     <h:outputText value="#{calendar.fecha}" />
+     </p:column>
+     
+     
+
+</p:panelGrid>
+
+
+
+
+</h:form>
+</body> 
+</html>
