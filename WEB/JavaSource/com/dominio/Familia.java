@@ -1,46 +1,39 @@
 package com.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 
 
 /**
  * The persistent class for the FAMILIAS database table.
  * 
  */
-@Entity
-@Table(name="FAMILIAS")
-@NamedQuery(name="Familia.obtenerTodas", query="SELECT f FROM Familia f")
+@Named("familia")
+@SessionScoped
 public class Familia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="seq_fami", sequenceName="seq_Fami_Codi", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_fami")
-	@Column(name="FAMI_CODI")
+	
 	private Long famiCodi;
 
-	@Column(name="FAMI_DESCRIP")
+	
 	private String famiDescrip;
 
-	@Column(name="FAMI_INCOMPAT")
+	
 	private String famiIncompat;
 
-	@Column(name="FAMI_NOMBRE")
+	
 	private String famiNombre;
-/*
-	//bi-directional many-to-one association to Producto
-	@OneToMany(mappedBy="familia", fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	private List<Producto> productos = new ArrayList<>();
-*/
+
+	
+	
+	private List<Producto> productos = new ArrayList<Producto>();
+
 	public Familia() {
 	}
 
@@ -81,7 +74,7 @@ public class Familia implements Serializable {
 	}
 	
 	
-/*
+
 	public List<Producto> getProductos() {
 		return this.productos;
 	}
@@ -103,5 +96,13 @@ public class Familia implements Serializable {
 
 		return producto;
 	}
-*/
+
+	@Override
+	public String toString() {
+		return "Familia [famiCodi=" + famiCodi + ", famiDescrip=" + famiDescrip + ", famiIncompat=" + famiIncompat
+				+ ", famiNombre=" + famiNombre + ", productos=" + productos + "]";
+	}
+	
+	
+
 }

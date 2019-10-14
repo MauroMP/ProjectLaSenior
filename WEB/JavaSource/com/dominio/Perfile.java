@@ -2,33 +2,24 @@ package com.dominio;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
 
 
 /**
  * The persistent class for the PERFILES database table.
  * 
  */
-@Entity
-@Table(name="PERFILES")
-@NamedQuery(name="Perfile.findAll", query="SELECT p FROM Perfile p")
+@Named("perfil")
+@SessionScoped
 public class Perfile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "seq_perf", sequenceName = "seq_Perf_Codigo", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_perf")
-	@Column(name="PERF_CODIGO")
+
 	private long perfCodigo;
 
-	@Column(name="PERF_NOMBRE")
+	
 	private String perfNombre;
 
 	public Perfile() {
@@ -50,5 +41,11 @@ public class Perfile implements Serializable {
 		this.perfNombre = perfNombre;
 	}
 
+	@Override
+	public String toString() {
+		return "Perfile [perfCodigo=" + perfCodigo + ", perfNombre=" + perfNombre + "]";
+	}
+
+	
 	
 }

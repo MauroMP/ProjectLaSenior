@@ -1,62 +1,47 @@
 package com.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+
 
 
 /**
  * The persistent class for the USUARIOS database table.
  * 
  */
-@Entity
-@Table(name="USUARIOS")
-@NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
+@Named("usuario")
+@SessionScoped
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name = "seq_usu", sequenceName = "seq_Usu_Codigo", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_usu")
-	@Column(name="USU_CODIGO")
+	
 	private Long usuCodigo;
 
-	@Column(name="USU_NOMBRE")
+	
 	private String usuNombre;
 
-	@Column(name="USU_CORREO")
+	
 	private String usuCorreo;
 
-	@Column(name="USU_APELLIDO")
+	
 	private String usuApellido;
 
-	@Column(name="USU_NOMACCESO")
+	
 	private String usuNomacceso;
 
-	@Column(name="USU_PASSWORD")
+	
 	private String usuPassword;
-/*
-	//bi-directional many-to-one association to Producto
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="usuario")
+
+	
 	private List<Producto> productos;
 
-	//bi-directional many-to-one association to Recepcione
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="usuario")
+
 	private List<Recepcione> recepciones;
-*/
-	//bi-directional many-to-one association to Perfile
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="PERF_CODIGO")
+
 	private Perfile perfile;
 
 	public Usuario() {
@@ -109,7 +94,7 @@ public class Usuario implements Serializable {
 	public void setUsuPassword(String usuPassword) {
 		this.usuPassword = usuPassword;
 	}
-/*
+
 	public List<Producto> getProductos() {
 		return this.productos;
 	}
@@ -153,7 +138,7 @@ public class Usuario implements Serializable {
 
 		return recepcione;
 	}
-*/
+
 	public Perfile getPerfile() {
 		return this.perfile;
 	}
@@ -161,5 +146,14 @@ public class Usuario implements Serializable {
 	public void setPerfile(Perfile perfile) {
 		this.perfile = perfile;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [usuCodigo=" + usuCodigo + ", usuNombre=" + usuNombre + ", usuCorreo=" + usuCorreo
+				+ ", usuApellido=" + usuApellido + ", usuNomacceso=" + usuNomacceso + ", usuPassword=" + usuPassword
+				+ ", productos=" + productos + ", recepciones=" + recepciones + ", perfile=" + perfile + "]";
+	}
+	
+	
 
 }

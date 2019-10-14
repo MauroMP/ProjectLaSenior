@@ -136,6 +136,15 @@ public class Movimiento implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Movimiento [movId=" + movId + ", movCantidad=" + movCantidad + ", movDescripcion=" + movDescripcion
+				+ ", movFecha=" + movFecha + ", movTipo=" + movTipo + ", movCosto=" + movCosto + ", almacenamiento="
+				+ almacenamiento + ", producto=" + producto + "]";
+	}
+	
+	
 	
 	
 	

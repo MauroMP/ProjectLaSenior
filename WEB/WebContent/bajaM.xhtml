@@ -8,21 +8,36 @@
 <h:head></h:head> 
 <body> 
 
-<p:dataTable var="movi" value="#{mov.movs}">
+<p:dataTable var="movi" value="#{mov.tabla}">
+    <f:facet name="header">
+        <h:outputText value="Modificacion de Movimiento"></h:outputText>
+    </f:facet>
     <p:column headerText="Id">
-        <h:outputText value="#{movimiento.movId}" />
+        <h:outputText value="#{movi.movId}" />
     </p:column>
  
     <p:column headerText="Fecha">
-        <h:outputText value="#{movimiento.movFecha}" />
+        <h:outputText value="#{movi.movFecha}" />
     </p:column>
  
     <p:column headerText="Tipo">
-        <h:outputText value="#{movimiento.movTipo}" />
+        <h:outputText value="#{movi.movTipo}" />
     </p:column>
  
     <p:column headerText="Costo">
-        <h:outputText value="#{movimiento.movCosto}" />
+        <h:outputText value="#{movi.movCosto}" />
+    </p:column>
+    
+    <p:column headerText="Descripcion">
+        <h:outputText value="#{movi.movDescripcion}" />
+    </p:column>
+    
+    <p:column headerText="Producto">
+        <h:outputText value="#{movi.producto.prodNombre}" />
+    </p:column>
+    
+    <p:column headerText="Almacenamiento">
+        <h:outputText value="#{movi.almacenamiento.almaNombre}" />
     </p:column>
 </p:dataTable>
 
@@ -31,6 +46,16 @@
 <f:facet name="header">
         <h:outputText value="Modificar Movimiento"></h:outputText>
     </f:facet>
+    <h:form>
+    <p:selectOneListbox id="busqueda" value="#{mov.optionS}">
+            <f:selectItem itemLabel="Producto" itemValue="P" />
+            <f:selectItem itemLabel="Almacenamiento" itemValue="A" />
+            <f:selectItem itemLabel="Descripción" itemValue="D" />
+            <f:selectItem itemLabel="Fecha" itemValue="F" />
+    </p:selectOneListbox>
+    <p:inputText id="inputBuscar" value="#{mov.buscar}"/>
+    <p:commandButton id="btbusc" value="Buscar" action="mov.tabla"></p:commandButton>
+    </h:form>
 <p:outputLabel value="Fecha: " />
    	<p:calendar value="#{calendar.date}"></p:calendar>
 

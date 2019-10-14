@@ -1,63 +1,49 @@
 package com.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+
 
 
 /**
  * The persistent class for the ALMACENAMIENTOS database table.
  * 
  */
-@Entity
-@Table(name="ALMACENAMIENTOS")
-@NamedQuery(name="Almacenamiento.obtenerTodos", query="SELECT a FROM Almacenamiento a ORDER BY a.almaNombre")
-@NamedQuery(name="Almacenamiento.obtenerAlmacen", query="SELECT a FROM Almacenamiento a WHERE a.almaNombre LIKE :almaNombre")
+@Named("almacenamiento")
+@SessionScoped
 public class Almacenamiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@SequenceGenerator(name="seq_alma", sequenceName="seq_Alma_Id", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_alma")
-	@Column(name="ALMA_ID")
+	
 	private Long almaId;
 	
-	@Column(name="ALMA_NOMBRE", unique=true)
+	
 	private String almaNombre;
 
-	@Column(name="ALMA_CANESTIBA")
+	
 	private Long almaCanestiba;
 
-	@Column(name="ALMA_CAPPESO")
+	
 	private Double almaCappeso;
 
-	@Column(name="ALMA_COSTOOP")
+	
 	private Double almaCostoop;
 
-	@Column(name="ALMA_DESCRIPCION")
+	
 	private String almaDescripcion;
 
-	@Column(name="ALMA_VOLUMEN")
+	
 	private Double almaVolumen;
 
-	//bi-directional many-to-one association to Locale
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="LOC_ID")
+	
 	private Locale locale;
 
-	//bi-directional many-to-one association to Movimiento
-	//@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	//private List<Movimiento> movimientos;
+	
+	private List<Movimiento> movimientos;
 	
 
 	public Almacenamiento() {
@@ -95,7 +81,7 @@ public class Almacenamiento implements Serializable {
 	public void setLocale(Locale locale) {
 		this.locale = locale;
 	}
-/*
+
 	public List<Movimiento> getMovimientos() {
 		return this.movimientos;
 	}
@@ -117,7 +103,7 @@ public class Almacenamiento implements Serializable {
 
 		return movimiento;
 	}
-*/
+
 	public Long getAlmaCanestiba() {
 		return almaCanestiba;
 	}
@@ -152,6 +138,15 @@ public class Almacenamiento implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Almacenamiento [almaId=" + almaId + ", almaNombre=" + almaNombre + ", almaCanestiba=" + almaCanestiba
+				+ ", almaCappeso=" + almaCappeso + ", almaCostoop=" + almaCostoop + ", almaDescripcion="
+				+ almaDescripcion + ", almaVolumen=" + almaVolumen + ", locale=" + locale + ", movimientos="
+				+ movimientos + "]";
 	}
 
 	
