@@ -25,10 +25,10 @@
      
      <p:column>
     <h:outputText value="Motivo Baja: " />
-    <p:selectOneMenu id="movtip" value="#={mov.tipo}" >
+    <p:selectOneMenu id="movtip" value="#{mov.tipoM}" >
     <f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
-     <f:selectItem itemLabel="Perdida" itemValue="Perdida" />
-     <f:selectItem itemLabel="Movimiento" itemValue="Movimiento" />
+     <f:selectItem itemLabel="Perdida" itemValue="P" />
+     <f:selectItem itemLabel="Movimiento" itemValue="M" />
     </p:selectOneMenu>
     
     </p:column>
@@ -58,12 +58,12 @@
     
     <p:column>
     <p:outputLabel value="Fecha: " />
-   	<p:calendar value="#{calendar.date}"></p:calendar>
+   	<p:calendar value="#{mov.date}"></p:calendar>
     </p:column>
     
 </p:panelGrid>
 
-<p:commandButton action="#{mov.Comprobar}" value="Comprobar" />
+<p:commandButton id="btcomprobar" action="#{mov.Comprobar}" value="Comprobar" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 </h:form>
 <br/>
 <br/>

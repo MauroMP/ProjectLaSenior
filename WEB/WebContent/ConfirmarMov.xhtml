@@ -15,7 +15,7 @@
     </f:facet>
 <p:column>
     <h:outputText value="Motivo Baja: " />
-    <h:outputText value="#{mov.tipo}" />
+    <h:outputText value="#{mov.tipoM}" />
     </p:column>
     
     <p:column> 
@@ -36,7 +36,7 @@
      
      <p:column>
      <h:outputText value="Fecha: " />
-     <h:outputText value="#{calendar.fecha}" />
+     <h:outputText value="#{mov.date}" />
      </p:column>
      
      
@@ -44,7 +44,7 @@
 </p:panelGrid>
 
 
-
+<p:commandButton id="btguardar" Value="Guardar" action= "#{mov.crearmov}"  style="margin-right:20px;" styleClass="ui-priority-primary"/>
 
 </h:form>
 </body> 
