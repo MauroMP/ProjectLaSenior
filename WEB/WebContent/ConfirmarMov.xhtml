@@ -30,9 +30,7 @@
 		<p:column>
     <h:outputText value="Cantidad a Bajar: " />
     <h:outputText value="#{mov.cantb}    " />
-    <h:outputText value="Stock Antes de Bajar: " />
-    <h:outputText value="#{mov.sp}" />
-     </p:column>
+       </p:column>
      
      <p:column>
      <h:outputText value="Fecha: " />
@@ -40,11 +38,12 @@
      </p:column>
      
      
+     
 
 </p:panelGrid>
 
 
-<p:commandButton id="btguardar" Value="Guardar" action= "#{mov.crearmov}"  style="margin-right:20px;" styleClass="ui-priority-primary"/>
+<p:commandButton id="btguardar" Value="Guardar" action= "#{mov.crearmov}" update="altaM.xhtml" style="margin-right:20px;" styleClass="ui-priority-primary"/>
 
 </h:form>
 </body> 

@@ -49,7 +49,7 @@ public class movimientos implements Serializable {
 	private String[] almas;
 	private String tipoM;
 	private String producto;
-	private String cantb;
+	private String cantb = "";
 	private String sp;
 	private String optionS;
 	private String optbuscar;
@@ -203,7 +203,7 @@ public class movimientos implements Serializable {
 		return listmov;
 		}
 	
-	public String Search(){
+	public void Search(){
 		//List<Movimiento> listmovT = new ArrayList<Movimiento>();
 		
        if(optionS.equals("P")||optionS.equals("D")||optionS.equals("A")||optionS.equals("F")) {
@@ -244,7 +244,7 @@ public class movimientos implements Serializable {
 		optionS = "";
 		optbuscar = "";
 		
-		return "bajaM.xhtml";
+		//return "bajaM.xhtml";
 		}
 	
 	
@@ -299,12 +299,19 @@ public class movimientos implements Serializable {
 		return sp1;
 	}
 	
+    public String getCostoprod() {
+		
+		Gson gson = new Gson();
+		String[] prods = gson.fromJson(readJsonFromUrl(url1+"costoprod/"+producto), String[].class);
+		String sp1 = prods[0];
+		return sp1;
+	}
+	
 	public String Comprobar () {
 		
 		sp=getStockprod();
 		
-		
-		return "ConfirmarMov.xhtml";
+		return "altaM.xhtml";
 	}
 	
 	public Almacenamiento almacenamientos(String nombre) {
@@ -380,6 +387,40 @@ public class movimientos implements Serializable {
 				} 
 			     
 		
+	}
+	
+	public String getCosto() {
+		String costo = null;
+	if(cantb.equals("")) {
+		costo = "";
+	}else {
+		
+		Double cost = Double.parseDouble(getCostoprod());
+		Double b = Double.parseDouble(cantb);
+		Double c = cost*b;
+		costo = c.toString();
+	}
+		return costo;
+	}
+	
+	public String getStockD() {
+		String s = null;
+	
+		if(cantb.equals("")) {
+			s = "";
+		}else {
+		
+		Double stock = Double.parseDouble(getStockprod());
+		Double c = Double.parseDouble(cantb);
+		Double e = stock-c;
+		
+		if(e<0) {
+			s="Error";
+		}else {
+		 s = e.toString();
+		}
+		}
+		return s;
 	}
 	
 			
