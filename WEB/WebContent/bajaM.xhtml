@@ -57,6 +57,31 @@
     <p:commandButton id="btbusc" value="Buscar" action="#{mov.Search}" update=":movTabla" style="margin-right:20px;" styleClass="ui-priority-primary"/>
     </h:form>
 
+<p:panelGrid id="gridMod"  name="GridM" columns="5">
+<f:facet name="header">
+        <h:outputText value="Modificar Movimiento"></h:outputText>
+    </f:facet>
+    
+    <p:selectOneListbox id="busqueda" value="#{mov.optionS}" requerid ="true">
+            <f:selectItem itemLabel="Producto" itemValue="P" />
+            <f:selectItem itemLabel="Almacenamiento" itemValue="A" />
+            <f:selectItem itemLabel="Descripción" itemValue="D" />
+            <f:selectItem itemLabel="Fecha" itemValue="F" />
+    </p:selectOneListbox>
+    <p:column>
+    <h:outputText value="Opcion para Buscar"/>
+    <br/>
+    <p:inputText id="inputBuscar" value="#{mov.optbuscar}" requerid = "true"/>
+    </p:column>
+    <p:commandButton id="btbusc" value="Buscar" action="#{mov.Search}" update="movTabla" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+    
+    <p:column>
+    <h:outputText value="Id para Eliminar"/>
+    <br/>
+    <p:inputText id="inputEliminar" value="#{mov.idEliminar}" requerid = "true"/>
+    <p:commandButton id="btbeli" value="Eliminar" action="#{mov.Search}" update="movTabla" style="margin-right:20px;" styleClass="ui-priority-primary"/>
+    </p:column>
+</p:panelGrid>
 
 </p:panelGrid>
 </body> 

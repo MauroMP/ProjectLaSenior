@@ -11,7 +11,11 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf"
       xmlns:rich="http://richfaces.org/rich"> 
 
-<h:head></h:head> 
+<h:head>
+<title>Movimientos</title>
+      <h:outputStylesheet name = "css/styles.css"  /> 
+</h:head> 
+
 <body> 
 
  
@@ -124,7 +128,12 @@
 
 <p:tab title="Modificar o Eliminar Movimiento">
 <h:form>
-<p:dataTable id="movTabla" var="movi" value="#{mov.tablaList}" >
+
+
+
+
+<p:dataTable id="movTabla" var="movi" value="#{mov.movs}" styleClass="table table-bordered">
+<p:growl id="growl" life="2000" />
     <f:facet name="header">
         <h:outputText value="Modificacion de Movimiento"></h:outputText>
     </f:facet>
@@ -132,47 +141,36 @@
         <h:outputText value="#{movi.movId}" />
     </p:column>
  
-    <p:column headerText="Fecha">
+    <p:column headerText="Fecha" filterBy="#{movi.movFecha}" filterMatchMode="contains">
         <h:outputText value="#{movi.movFecha}" />
     </p:column>
  
-    <p:column headerText="Tipo">
+    <p:column headerText="Tipo" filterBy="#{movi.movTipo}" filterMatchMode="contains">
         <h:outputText value="#{movi.movTipo}" />
     </p:column>
  
-    <p:column headerText="Costo">
+    <p:column headerText="Costo" filterBy="#{movi.movCosto}" filterMatchMode="contains">
         <h:outputText value="#{movi.movCosto}" />
     </p:column>
     
-    <p:column headerText="Descripcion">
+    <p:column headerText="Descripcion" filterBy="#{movi.movDescripcion}" filterMatchMode="contains">
         <h:outputText value="#{movi.movDescripcion}" />
     </p:column>
     
-    <p:column headerText="Producto">
+    <p:column headerText="Producto"  filterBy="#{movi.producto.prodNombre}" filterMatchMode="contains">
         <h:outputText value="#{movi.producto.prodNombre}" />
     </p:column>
     
-    <p:column headerText="Almacenamiento">
+    <p:column headerText="Almacenamiento"  filterBy="#{movi.almacenamiento.almaNombre}" filterMatchMode="contains">
         <h:outputText value="#{movi.almacenamiento.almaNombre}" />
+    </p:column>
+    <p:column>
+    <p:commandButton action="#{mov.eliminarMov}" id="iconOnly" icon="ui-icon-myDelete" />
     </p:column>
 </p:dataTable>
 
 
-<p:panelGrid id="gridMod"  name="GridM" columns="4">
-<f:facet name="header">
-        <h:outputText value="Modificar Movimiento"></h:outputText>
-    </f:facet>
-    
-    <p:selectOneListbox id="busqueda" value="#{mov.optionS}" requerid ="true">
-            <f:selectItem itemLabel="Producto" itemValue="P" />
-            <f:selectItem itemLabel="Almacenamiento" itemValue="A" />
-            <f:selectItem itemLabel="Descripción" itemValue="D" />
-            <f:selectItem itemLabel="Fecha" itemValue="F" />
-    </p:selectOneListbox>
-    <p:inputText id="inputBuscar" value="#{mov.optbuscar}" requerid = "true"/>
-    <p:commandButton id="btbusc" value="Buscar" action="#{mov.Search}" update="movTabla" style="margin-right:20px;" styleClass="ui-priority-primary"/>
-    
-</p:panelGrid>
+
 
 </h:form>
 

@@ -58,9 +58,20 @@ public class movimientos implements Serializable {
 	private String url1 = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/";
 	private String url2 = "http://dominio.ddns.net:8086/ProyectoRest/rest/alma/";
 	private Date date;
+	private String idEliminar;
+	
+	
 	
     
     
+	public String getIdEliminar() {
+		return idEliminar;
+	}
+
+	public void setIdEliminar(String idEliminar) {
+		this.idEliminar = idEliminar;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -208,7 +219,7 @@ public class movimientos implements Serializable {
 		
        if(optionS.equals("P")||optionS.equals("D")||optionS.equals("A")||optionS.equals("F")) {
 			
-			if(optbuscar.equals(null)) {
+			if(optbuscar.equals("")) {
 				System.out.println("entro al if de options");
 				tablaList=getMovs();
 			}
@@ -225,7 +236,7 @@ public class movimientos implements Serializable {
 			}
 			if(optionS.equals("D")) {
 				System.out.println("D");
-				tablaList=getBuscar("movd/"+optbuscar);
+				tablaList=getBuscar("movsd/"+optbuscar);
 				
 			}
 			if(optionS.equals("F")) {
@@ -239,9 +250,7 @@ public class movimientos implements Serializable {
 			tablaList=getMovs();
 		}
 		
-	  	System.out.println(optionS);
-		System.out.println(optbuscar);
-		optionS = "";
+	  	optionS = "";
 		optbuscar = "";
 		
 		//return "bajaM.xhtml";
@@ -423,6 +432,9 @@ public class movimientos implements Serializable {
 		return s;
 	}
 	
+	public void eliminarMov() {
+		System.out.println("Elimine");
+	}
 			
 	public String getFecha () {
 		SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/YYYY");

@@ -1,0 +1,6 @@
+
+
+.ui-icon-myDelete{
+    background-image: url("#{resources['imagenes/delete.svg']}") !important;
+     
+}
