@@ -1,6 +1,37 @@
 
+.ui-row-editor .ui-row-editor-pencil {
+        margin-left:15px; size:15mm !important;
+    }
 
-.ui-icon-myDelete{
-    background-image: url("#{resources['imagenes/delete.svg']}") !important;
-     
+
+    .ui-pi-times{
+    background-image: url("resources/imagenes/delete.png")  !important;
+    resize: both;
+      }
+    .ui-icon-myDelete{
+    background-image: url(../resources/imagenes/delete.jpg) !important ;
+      
+    }
+    
+    #btDelete{
+    border-bottom: red;
+    }
+    
+  .btn { background: #92c7eb;
+ background-image: url(“https://www.dropbox.com/s/pfcaxw5woxepgrn/delete.png?dl=0");
+ background-size: cover;
+ background-position: center;
+ display: inline-block;
+ border: none;
+ padding: 20px;
+ width: 70px;
+ border-radius: 900px;
+ height: 70px;
+ transition: all 0.5s;
+ cursor: pointer;
+}
+.btn:hover
+{
+ width: 75px;
+ height: 75px;
 }

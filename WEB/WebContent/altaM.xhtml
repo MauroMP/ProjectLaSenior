@@ -13,13 +13,15 @@
 
 <h:head>
 <title>Movimientos</title>
-      <h:outputStylesheet name = "css/styles.css"  /> 
+ <h:outputStylesheet  name="css/styles.css"/>
+ <link rel="stylesheet" type="text/css" href="css/style.css" />
+
 </h:head> 
 
 <body> 
 
  
- <p:tabView>
+ <p:tabView id="tabV">
  <p:tab title="Crear Movimiento">
 <h:form>
 <br />
@@ -67,6 +69,11 @@
     <p:outputLabel value="Fecha: " />
    	<p:calendar value="#{mov.date}"></p:calendar>
     </p:column>
+    
+    <p:column>
+    <p:outputLabel value="Descripción: " />
+     <p:inputTextarea value="#{mov.descrip}"/>
+     </p:column>
     
 </p:panelGrid>
 
@@ -119,6 +126,11 @@
     <h:outputText value="#{mov.stockD}" />
      </p:column>
      
+     <p:column>
+     <h:outputText value="Descripción: " />
+    <h:outputText value="#{mov.descrip}" />
+     </p:column>
+         
  </p:panelGrid>
 
 
@@ -127,26 +139,39 @@
 </p:tab>
 
 <p:tab title="Modificar o Eliminar Movimiento">
-<h:form>
 
 
+<h:form id="form">
+<p:growl id="msgs" life="2000" showDetail="true" />
 
+<p:dataTable id="movTabla" var="movi" value="#{mov.movs}" styleClass="table table-bordered" paginator="true"
+                                     rows="20"  editable="true"  >
 
-<p:dataTable id="movTabla" var="movi" value="#{mov.movs}" styleClass="table table-bordered">
-<p:growl id="growl" life="2000" />
+   
     <f:facet name="header">
         <h:outputText value="Modificacion de Movimiento"></h:outputText>
     </f:facet>
-    <p:column headerText="Id">
+    
+        <p:ajax event="rowEdit" listener="#{mov.onRowEdit}" update="tabV:form:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{mov.onRowCancel}" update="tabV:form:msgs"/>
+        
+    <p:column style="width:35px" headerText="Id">
         <h:outputText value="#{movi.movId}" />
     </p:column>
  
     <p:column headerText="Fecha" filterBy="#{movi.movFecha}" filterMatchMode="contains">
-        <h:outputText value="#{movi.movFecha}" />
+    <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{mov.Fecha(movi.movFecha)}" /></f:facet>
+                <f:facet name="input"><p:calendar value="#{mov.date}" requerid="true"></p:calendar></f:facet>
+        </p:cellEditor>
+        
     </p:column>
  
-    <p:column headerText="Tipo" filterBy="#{movi.movTipo}" filterMatchMode="contains">
-        <h:outputText value="#{movi.movTipo}" />
+    <p:column style="width:35px" headerText="Tipo" filterBy="#{movi.movTipo}" filterMatchMode="contains">
+    <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{movi.movTipo}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{mov.tipoM}" requerid="true"/></f:facet>
+        </p:cellEditor>
     </p:column>
  
     <p:column headerText="Costo" filterBy="#{movi.movCosto}" filterMatchMode="contains">
@@ -154,18 +179,41 @@
     </p:column>
     
     <p:column headerText="Descripcion" filterBy="#{movi.movDescripcion}" filterMatchMode="contains">
-        <h:outputText value="#{movi.movDescripcion}" />
+        <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{movi.movDescripcion}" /></f:facet>
+                <f:facet name="input"><p:inputText id="descipInput" value="#{mov.descrip}" style="width:100%"/></f:facet>
+        </p:cellEditor>
     </p:column>
     
     <p:column headerText="Producto"  filterBy="#{movi.producto.prodNombre}" filterMatchMode="contains">
-        <h:outputText value="#{movi.producto.prodNombre}" />
-    </p:column>
+    
+    <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{movi.producto.prodNombre}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{mov.producto}" style="width:100%">
+                        <f:selectItems value="#{mov.prods}" var="prod"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
     
     <p:column headerText="Almacenamiento"  filterBy="#{movi.almacenamiento.almaNombre}" filterMatchMode="contains">
-        <h:outputText value="#{movi.almacenamiento.almaNombre}" />
+        <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{movi.almacenamiento.almaNombre}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{mov.almacenes}" style="width:100%">
+                        <f:selectItems value="#{mov.almas}" var="almas"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+    </p:column>
+    <p:column headerText="Editar" >
+    <p:rowEditor />
     </p:column>
     <p:column>
-    <p:commandButton action="#{mov.eliminarMov}" id="iconOnly" icon="ui-icon-myDelete" />
+    
+    <p:commandButton id="btDelete" value="Borrar" icon="ui-icon-myDelete"></p:commandButton>
+    
     </p:column>
 </p:dataTable>
 
@@ -177,9 +225,11 @@
 </p:tab>
 </p:tabView>
 
+<div><img src="https://www.dropbox.com/s/pfcaxw5woxepgrn/delete.png?dl=0" alt="" />
+<h:button ></h:button>
+<i class="pi pi-times">Texto</i>
 
-
-
+</div>
 
 </body> 
 </html>

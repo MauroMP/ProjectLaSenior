@@ -20,10 +20,15 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import javax.ws.rs.core.MediaType;
+
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 import com.dominio.Almacenamiento;
 import com.dominio.Movimiento;
@@ -50,6 +55,7 @@ public class movimientos implements Serializable {
 	private String tipoM;
 	private String producto;
 	private String cantb = "";
+	private String descrip;
 	private String sp;
 	private String optionS;
 	private String optbuscar;
@@ -59,11 +65,20 @@ public class movimientos implements Serializable {
 	private String url2 = "http://dominio.ddns.net:8086/ProyectoRest/rest/alma/";
 	private Date date;
 	private String idEliminar;
+	private String mensajeConect;
 	
 	
 	
     
     
+	public String getDescrip() {
+		return descrip;
+	}
+
+	public void setDescrip(String descrip) {
+		this.descrip = descrip;
+	}
+
 	public String getIdEliminar() {
 		return idEliminar;
 	}
@@ -386,6 +401,7 @@ public class movimientos implements Serializable {
 					String line;
 				      while ((line = bufferedReader.readLine()) != null) {
 				        System.out.println(line);
+				        mensajeConect = line;
 				      }
 				} else {
 				    // ... do something with unsuccessful response
@@ -397,6 +413,48 @@ public class movimientos implements Serializable {
 			     
 		
 	}
+	public void conectPatch (String dato, String ur) throws IOException {
+		URL url = null;
+			try {
+				url = new URL(ur);
+			} catch (MalformedURLException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
+			HttpURLConnection conn = null;
+			try {
+				conn = (HttpURLConnection) url.openConnection();
+				conn.setDoOutput(true);
+				conn.setRequestMethod("PUT");
+				conn.setRequestProperty("Content-Type", MediaType.APPLICATION_JSON);
+				String input = dato;
+				DataOutputStream os = new DataOutputStream(conn.getOutputStream());
+				os.write(input.getBytes());
+				os.flush();
+			} catch (IOException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
+			
+				try {
+						if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+						    BufferedReader bufferedReader;
+						bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+						String line;
+					      while ((line = bufferedReader.readLine()) != null) {
+					        System.out.println(line);
+					        mensajeConect = line;
+					      }
+					} else {
+					    // ... do something with unsuccessful response
+					  }
+				}catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				     
+			
+		}
 	
 	public String getCosto() {
 		String costo = null;
@@ -436,12 +494,82 @@ public class movimientos implements Serializable {
 		System.out.println("Elimine");
 	}
 			
-	public String getFecha () {
-		SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/YYYY");
-		System.out.println(dateFormat.format(date));
-		String fecha = dateFormat.format(date);
+	public String Fecha (Date date) {
+		String fecha;
+		if(date!=null) {
+			SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/YYYY");
+			fecha = dateFormat.format(date);
+		}else {
+			fecha = "Sin fecha";
+		}
 		return fecha;
 	}
+	
+	
+
+	public void onRowEdit(RowEditEvent event) {
+		Long movi = ((Movimiento) event.getObject()).getMovId();
+		Movimiento mov = new Movimiento();
+		mov.setMovId(movi);
+		
+		if(!descrip.equals("")) {
+		mov.setMovDescripcion(descrip);
+		}else {
+			mov.setMovDescripcion(((Movimiento) event.getObject()).getMovDescripcion());
+		}
+		if(!producto.equals("")) {
+		mov.setProducto(productos(producto));
+		}else {
+			mov.setProducto(((Movimiento) event.getObject()).getProducto());
+		}
+		if(!almacenes.equals("")) {
+			mov.setAlmacenamiento(almacenamientos(almacenes));
+		}else {
+			mov.setAlmacenamiento(((Movimiento) event.getObject()).getAlmacenamiento());
+		}
+		if(date!=null) {
+		mov.setMovFecha(date);
+		}else {
+			mov.setMovFecha(((Movimiento) event.getObject()).getMovFecha());
+		}
+		if(!tipoM.equals("")) {
+			mov.setMovTipo(tipoM);
+		}else {
+			mov.setMovTipo(((Movimiento) event.getObject()).getMovTipo());
+		}
+		
+		String move = new Gson().toJson(mov);
+		try {
+			conectPatch(move, url0+"update");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+        FacesMessage msg = new FacesMessage(mensajeConect, ((Movimiento) event.getObject()).getMovId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        descrip ="";
+        producto ="";
+        almacenes ="";
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+    	    	
+        FacesMessage msg = new FacesMessage("Cancelada la edición", ((Movimiento) event.getObject()).getMovId().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+     
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+	
 	
 	
 }
