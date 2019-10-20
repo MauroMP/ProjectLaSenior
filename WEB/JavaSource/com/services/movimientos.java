@@ -493,7 +493,8 @@ public class movimientos implements Serializable {
 	public void eliminarMov() {
 		System.out.println("Elimine");
 	}
-			
+		
+	
 	public String Fecha (Date date) {
 		String fecha;
 		if(date!=null) {
@@ -509,6 +510,7 @@ public class movimientos implements Serializable {
 
 	public void onRowEdit(RowEditEvent event) {
 		Long movi = ((Movimiento) event.getObject()).getMovId();
+		boolean fv = false;
 		Movimiento mov = new Movimiento();
 		mov.setMovId(movi);
 		
@@ -537,6 +539,19 @@ public class movimientos implements Serializable {
 		}else {
 			mov.setMovTipo(((Movimiento) event.getObject()).getMovTipo());
 		}
+		if(!cantb.equals("")) {
+			mov.setMovCantidad(Double.parseDouble(cantb));
+			fv=true;
+		}else {
+			mov.setMovCantidad(((Movimiento) event.getObject()).getMovCantidad());
+		}
+		
+		if(fv) {
+			mov.setMovCosto(Double.parseDouble(getCosto()));
+		}else {
+		mov.setMovCosto(((Movimiento) event.getObject()).getMovCosto());
+		}
+		
 		
 		String move = new Gson().toJson(mov);
 		try {
@@ -556,7 +571,7 @@ public class movimientos implements Serializable {
      
     public void onRowCancel(RowEditEvent event) {
     	    	
-        FacesMessage msg = new FacesMessage("Cancelada la edición", ((Movimiento) event.getObject()).getMovId().toString());
+        FacesMessage msg = new FacesMessage("Cancelado", ((Movimiento) event.getObject()).getMovId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
      

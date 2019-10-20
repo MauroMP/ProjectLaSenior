@@ -145,7 +145,8 @@
 <p:growl id="msgs" life="2000" showDetail="true" />
 
 <p:dataTable id="movTabla" var="movi" value="#{mov.movs}" styleClass="table table-bordered" paginator="true"
-                                     rows="20"  editable="true"  >
+                                     rows="20"  editable="true" 
+                                      >
 
    
     <f:facet name="header">
@@ -159,7 +160,7 @@
         <h:outputText value="#{movi.movId}" />
     </p:column>
  
-    <p:column headerText="Fecha" filterBy="#{movi.movFecha}" filterMatchMode="contains">
+    <p:column headerText="Fecha" style="width:90px" filterBy="#{movi.movFecha}" filterMatchMode="contains">
     <p:cellEditor>
         <f:facet name="output"><h:outputText value="#{mov.Fecha(movi.movFecha)}" /></f:facet>
                 <f:facet name="input"><p:calendar value="#{mov.date}" requerid="true"></p:calendar></f:facet>
@@ -174,8 +175,15 @@
         </p:cellEditor>
     </p:column>
  
-    <p:column headerText="Costo" filterBy="#{movi.movCosto}" filterMatchMode="contains">
+    <p:column headerText="Costo" style="width:50px" filterBy="#{movi.movCosto}" filterMatchMode="contains">
         <h:outputText value="#{movi.movCosto}" />
+    </p:column>
+    
+    <p:column style="width:70px" headerText="Cantidad" filterBy="#{movi.movCantidad}" filterMatchMode="contains">
+    <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{movi.movCantidad}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{mov.cantb}" requerid="true"/></f:facet>
+        </p:cellEditor>
     </p:column>
     
     <p:column headerText="Descripcion" filterBy="#{movi.movDescripcion}" filterMatchMode="contains">
@@ -207,12 +215,14 @@
                 </f:facet>
             </p:cellEditor>
     </p:column>
-    <p:column headerText="Editar" >
+    <p:column  style="width:35px" >
     <p:rowEditor />
     </p:column>
-    <p:column>
-    
-    <p:commandButton id="btDelete" value="Borrar" icon="ui-icon-myDelete"></p:commandButton>
+    <p:column style="width:35px">
+   
+        <p:commandLink ajax="true" action="#{mov.eliminarMov}" process="@this">
+            <i title="Borrar" class="ui-icon ui-icon-trash" style="size: 20px;"/>
+        </p:commandLink>
     
     </p:column>
 </p:dataTable>
