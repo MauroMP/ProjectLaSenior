@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rich="http://richfaces.org/rich"> 
+
+<h:head>
+<title> ABM Producto</title>
+
+<script src="https://kit.fontawesome.com/ec6fa74a11.js" crossorigin="anonymous"></script>
+
+</h:head> 
+<body> 
+
+<p:tabView id="tabP">
+<p:tab title="Modificar o Eliminar Productos">
+ 
+<h:form id="form">
+<p:growl id="msgs" life="3000" showDetail="true" />
+
+<p:dataTable id="prodTabla" var="pro" value="#{prod.prods}" styleClass="table table-bordered" paginator="true"
+             rows="20"  editable="true" selection="#{prod.selectedRow}" selectionMode="single" rowKey="#{pro.prodId}"> 
+           
+        <f:facet name="header">
+        	<h:outputText value="Modificar o Eliminar Producto"></h:outputText>
+    	</f:facet>
+    
+        <p:ajax event="rowEdit" listener="#{prod.onRowEdit}" update="tabP:form:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{prod.onRowCancel}" update="tabP:form:msgs"/>
+        <p:ajax event="rowSelect" listener="#{prod.onRowSelect}" update="tabP:form:msgs" />  
+        
+        <p:column style="width:35px" headerText="Id">
+        	<h:outputText value="#{pro.prodId}" />
+        </p:column>        
+        
+        <p:column headerText="Nombre" style="width:90px" filterBy="#{pro.prodNombre}" filterMatchMode="contains">
+    		<p:cellEditor>
+        		<f:facet name="output"><h:outputText value="#{pro.prodNombre}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{prod.nombre}" requerid="true" /></f:facet>
+        	</p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Lote" style="width:50px" filterBy="#{pro.prodLote}" filterMatchMode="contains">
+        	
+        	<p:cellEditor>
+        		<f:facet name="output"><h:outputText value="#{pro.prodLote}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{prod.prodLote}" requerid="true" /></f:facet>
+        	</p:cellEditor>
+    	</p:column>
+    	
+    	<p:column headerText="Fec. Venc" style="width:90px" filterBy="#{pro.prodFven}" filterMatchMode="contains">
+    		<p:cellEditor>
+        		<f:facet name="output"><h:outputText value="#{prod.Fecha(pro.prodFven)}" /></f:facet>
+                <f:facet name="input"><p:calendar value="#{prod.fecVen}" requerid="true"></p:calendar></f:facet>
+        	</p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Fec. Elab" style="width:90px" filterBy="#{pro.prodFelab}" filterMatchMode="contains">
+    		<p:cellEditor>
+        		<f:facet name="output"><h:outputText value="#{prod.Fecha2(pro.prodFelab)}" /></f:facet>
+                <f:facet name="input"><p:calendar value="#{prod.fecela}" requerid="true"></p:calendar></f:facet>
+        	</p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Precio" style="width:50px" filterBy="#{pro.prodPrecio}" filterMatchMode="contains">
+        	<p:cellEditor>
+        		<f:facet name="output"><h:outputText value="#{pro.prodPrecio}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{prod.prodPrecio}" requerid="true"></p:inputText></f:facet>
+        	</p:cellEditor>
+    	</p:column>
+    	
+    	<p:column headerText="Almacenamiento"  filterBy="#{pro.almacenamiento.almaNombre}" filterMatchMode="contains">
+        	<p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{pro.almacenamiento.almaNombre}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{prod.almacenes}" style="width:100%">
+                        <f:selectItems value="#{prod.almas}" var="almas"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+    	</p:column>
+         
+        <p:column headerText="Familia"  filterBy="#{pro.familia.famiNombre}" filterMatchMode="contains">
+        	<p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{pro.familia.famiNombre}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{prod.nomfamilia}" style="width:100%">
+                        <f:selectItems value="#{prod.famn}" var="famn"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+    	</p:column>  
+        <p:column  style="width:35px" >
+   			 <p:rowEditor/>
+    	</p:column>
+    	
+    	<p:column style="width:35px">
+   	    	<p:commandLink ajax="true" action="#{prod.eliminarPro}" process="@this" update="tabP:form:msgs">
+            	<p:confirm header="Confirmation" message="Seguro quiere borrar?" icon="fa fa-fw fa-remove" />
+            	<i class="ui-icon ui-icon-trash" title="Borrar" style="size: 20px;"></i>
+        	</p:commandLink>
+       		<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        		<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-fw fa-check-circle" />
+        		<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" >
+        			<span style="font-size: 3em; color: Tomato;">
+  						<i class="fas fa-camera"></i>
+					</span>
+        		</p:commandButton>
+    		</p:confirmDialog> 
+        </p:column>                    
+</p:dataTable>
+</h:form>
+</p:tab>
+
+<p:tab title="Crear Producto">
+<h:form>
+<br />
+
+<p:panelGrid id="gridAlta"  name="Grid" columns="3">
+    <f:facet name="header">
+        <h:outputText value="Alta de Producto"></h:outputText>
+    </f:facet>
+    
+    <p:column>
+    	<p:outputLabel value="Nombre: " />
+     	<p:inputText value="#{prod.nombre}"/>
+    </p:column>
+    
+    <p:column> 
+    	<h:outputText value="Almacenamiento: " />
+   		<p:selectOneMenu id="proalma" value="#{prod.almacenes}">
+ 			<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+            <f:selectItems value="#{prod.almas}" />
+		</p:selectOneMenu> 
+     </p:column>
+     
+     <p:column> 
+    	<h:outputText value="Familia: " />
+   		<p:selectOneMenu id="profami" value="#{prod.nomfamilia}">
+ 			<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+            <f:selectItems value="#{prod.famn}" />
+		</p:selectOneMenu> 
+     </p:column>
+     
+     <p:column>
+    	<p:outputLabel value="Stock Min: " />
+     	<p:inputText value="#{prod.prodstkMin}"/>
+     </p:column>
+     
+     <p:column>
+    	<p:outputLabel value="Stock Total: " />
+     	<p:inputText value="#{prod.prodstkTotal}"/>
+     </p:column>     
+     
+     <p:column>
+     	<h:outputText value="Segmentación: " />
+    	<p:selectOneMenu id="proseg" value="#{prod.prodSegmentacion}" >
+     		<f:selectItem itemLabel="No" itemValue="N" />
+     		<f:selectItem itemLabel="Si" itemValue="S" />
+    	</p:selectOneMenu>
+     </p:column>  
+     
+     <p:column>
+     	<h:outputText value="Estiba: " />
+    	<p:selectOneMenu id="proest" value="#{prod.prodEstiba}" >
+     		<f:selectItem itemLabel="No" itemValue="N" />
+     		<f:selectItem itemLabel="Si" itemValue="S" />
+    	</p:selectOneMenu>
+     </p:column>  
+
+     <p:column>
+    	<p:outputLabel value="Peso: " />
+     	<p:inputText value="#{prod.prodPeso}"/>
+     </p:column>      
+
+     <p:column>
+    	<p:outputLabel value="Volumen: " />
+     	<p:inputText value="#{prod.prodVol}"/>
+     </p:column> 
+
+     <p:column>
+    	<p:outputLabel value="Lote: " />
+     	<p:inputText value="#{prod.prodLote}"/>
+     </p:column> 
+
+     <p:column>
+    	<p:outputLabel value="Precio: " />
+     	<p:inputText value="#{prod.prodPrecio}"/>
+     </p:column> 
+     
+    <p:column>
+    	<p:outputLabel value="Fec. Elaboración: " />
+   		<p:calendar value="#{prod.fecela}"></p:calendar>
+    </p:column>
+    
+    <p:column>
+    	<p:outputLabel value="Fec. Vencimiento: " />
+   		<p:calendar value="#{prod.fecVen}"></p:calendar>
+    </p:column>    
+</p:panelGrid>     
+             
+
+<p:commandButton id="btcomprobar" action="#{prod.Comprobar}" value="Comprobar" update="gridP" style="margin-right:20px;" 
+			     styleClass="ui-priority-primary"/>
+
+<br/>
+<br/>
+
+<p:panelGrid id="gridP"  name="GridP" columns="3">
+    <f:facet name="header">
+        <h:outputText value="Confirmar Alta de Producto"></h:outputText>
+    </f:facet>
+    <p:column>
+    	<h:outputText value="Nombre: " />
+    	<h:outputText value="#{prod.nombre}" />
+    </p:column>
+    
+    <p:column> 
+    	<h:outputText value="Almacenamiento: " />
+    	<h:outputText value="#{prod.almacenes}"/>
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Familia: " />
+   		<h:outputText value="#{prod.nomfamilia}" />
+	</p:column>
+	
+	<p:column>
+    	<h:outputText value="Stock Minimo: " />
+    	<h:outputText value="#{prod.prodstkMin}    " />
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Fecha Elab: " />
+     	<h:outputText value="#{prod.fecela}" />
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Fecha Venc: " />
+    	<h:outputText value="#{prod.fecVen}" />
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Peso: " />
+    	<h:outputText value="#{prod.prodPeso}" />
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Volumen: " />
+    	<h:outputText value="#{prod.prodVol}" />
+    </p:column>
+    
+    <p:column>
+    	<h:outputText value="Lote: " />
+    	<h:outputText value="#{prod.prodLote}" />
+    </p:column>
+     
+    <p:column>
+    	<h:outputText value="Precio: " />
+    	<h:outputText value="#{prod.prodPrecio}" />
+    </p:column>
+         
+ </p:panelGrid>
+
+<p:commandButton id="btguardar" value="Guardar" action= "#{prod.agregarProducto}" style="margin-right:20px;" styleClass="ui-priority-primary">
+	<p:confirm header="Confirmation" message="Seguro quiere crearlo?" icon="pi pi-exclamation-triangle" />
+</p:commandButton>
+
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-times" />
+</p:confirmDialog>
+    
+</h:form>
+</p:tab>
+
+</p:tabView>
+
+</body> 
+</html>

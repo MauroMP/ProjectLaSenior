@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:r="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"      
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rich="http://richfaces.org/rich"> 
+
+<h:head>
+<title>Movimientos</title>
+ <script src="js/all.js" ></script>
+<style>
+.icono{font-size: 30px}
+</style>
+</h:head> 
+
+<body> 
+
+ 
+ <p:tabView id="tabV">
+ 
+ <p:tab title="Modificar o Eliminar Movimiento">
+
+
+<h:form id="form">
+<p:growl id="msgs" life="3000" showDetail="true" />
+
+<p:dataTable id="movTabla" var="movi" value="#{mov.movs}" styleClass="table table-bordered" paginator="true"
+                                     rows="20"  editable="true" 
+                                      selection="#{mov.selectedRow}" selectionMode="single" rowKey="#{movi.movId}">
+
+   <p:autoUpdate disabled="true"/>
+    <f:facet name="header">
+        <h:outputText value="Modificacion de Movimiento"></h:outputText>
+    </f:facet>
+    
+        <p:ajax event="rowEdit" listener="#{mov.onRowEdit}" update="tabV:form:msgs" />
+        <p:ajax event="rowEditCancel" listener="#{mov.onRowCancel}" update="tabV:form:msgs"/>
+        <p:ajax event="rowSelect" listener="#{mov.onRowSelect}" update="tabV:form:msgs" />
+        
+    <p:column style="width:35px" headerText="Id">
+        <h:outputText value="#{movi.movId}" />
+        
+    </p:column>
+ 
+    <p:column headerText="Fecha" style="width:90px" filterBy="#{movi.movFecha}" filterMatchMode="contains">
+    
+      <h:outputText value="#{mov.Fecha(movi.movFecha)}" />
+             
+        
+    </p:column>
+ 
+    <p:column style="width:35px" headerText="Tipo" filterBy="#{movi.movTipo}" filterMatchMode="contains">
+ <h:outputText value="#{movi.movTipo}" />
+                
+    </p:column>
+ 
+    <p:column headerText="Costo" style="width:50px" filterBy="#{movi.movCosto}" filterMatchMode="contains">
+        <h:outputText value="#{movi.movCosto}" />
+    </p:column>
+    
+    <p:column style="width:70px" headerText="Cantidad" filterBy="#{movi.movCantidad}" filterMatchMode="contains">
+    <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{movi.movCantidad}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{mov.cantb}" requerid="true"/></f:facet>
+        </p:cellEditor>
+    </p:column>
+    
+    <p:column headerText="Descripcion" filterBy="#{movi.movDescripcion}" filterMatchMode="contains">
+        <p:cellEditor>
+        <f:facet name="output"><h:outputText value="#{movi.movDescripcion}" /></f:facet>
+                <f:facet name="input"><p:inputText id="descipInput" value="#{mov.descrip}" style="width:100%"/></f:facet>
+        </p:cellEditor>
+    </p:column>
+    
+    <p:column headerText="Producto"  filterBy="#{movi.producto.prodNombre}" filterMatchMode="contains">
+    
+    <h:outputText value="#{movi.producto.prodNombre}" />
+                
+        </p:column>
+    
+    <p:column headerText="Almacenamiento"  filterBy="#{movi.almacenamiento.almaNombre}" filterMatchMode="contains">
+        <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{movi.almacenamiento.almaNombre}" /></f:facet>
+                <f:facet name="input">
+                    <h:selectOneMenu value="#{mov.almacenes}" style="width:100%">
+                        <f:selectItems value="#{mov.almas}" var="almas"/>
+                    </h:selectOneMenu>
+                </f:facet>
+            </p:cellEditor>
+    </p:column>
+    <p:column  style="width:35px" >
+    <p:rowEditor ></p:rowEditor>
+    </p:column>
+    <p:column style="width:35px">
+   
+        <p:commandLink ajax="true" action="#{mov.eliminarMov}" process="@this" update="tabV:form:msgs">
+            <p:confirm header="Confirmation" message="Seguro quiere borrar?" icon="fas fa-exclamation-triangle" />
+           <i class="ui-icon ui-icon-trash" title="Borrar"></i>
+        </p:commandLink>
+        
+       <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+        <p:commandButton value="Si" type="button" icon="fas fa-edit" update="tabV:form:movTabla" styleClass="ui-confirmdialog-yes"/>
+        <p:commandButton value="No" type="button" icon="fas fa-window-close" styleClass="ui-confirmdialog-no"/>
+       
+    </p:confirmDialog> 
+    
+    </p:column>
+</p:dataTable>
+
+
+
+
+</h:form>
+
+</p:tab>
+ 
+ 
+ 
+ <p:tab title="Crear Movimiento">
+<h:form id="formC">
+<br />
+ <p:messages id="messages" showDetail="true" closable="true">
+        <p:autoUpdate />
+    </p:messages>
+    <p:growl id="msgs1" life="5000" showDetail="true" />
+
+<p:panelGrid id="gridAlta"  name="Grid" columns="4">
+    <f:facet name="header">
+        <h:outputText value="Alta de Movimiento"></h:outputText>
+    </f:facet>
+   
+     <p:column>
+    <h:outputText value="Motivo Baja: " />
+    <p:selectOneMenu id="movtip" value="#{mov.tipoM}" >
+    <f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+     <f:selectItem itemLabel="Perdida" itemValue="P" />
+     <f:selectItem itemLabel="Movimiento" itemValue="M" />
+    </p:selectOneMenu>
+    
+    </p:column>
+    
+    <p:column> 
+    <h:outputText value="Almacenamiento: " />
+   <p:selectOneMenu id="movalma" value="#{mov.almacenes}">
+ 		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+                        <f:selectItems value="#{mov.almas}" />
+
+		</p:selectOneMenu> 
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Producto: " />
+   <p:selectOneMenu id="movprod" value="#{mov.producto}" onclick="#{mov.stockprod}">
+ 		<f:selectItem itemLabel="Select..."  noSelectionOption="true"/>
+                        <f:selectItems value="#{mov.prods}" />
+
+		</p:selectOneMenu> 
+		</p:column>
+		<p:column>
+    <h:outputText value="Cantidad a Bajar: " />
+    <p:inputNumber value="#{mov.cantb}" />
+     </p:column>
+    
+    
+    <p:column>
+    <p:outputLabel value="Fecha: " />
+   	<p:calendar value="#{mov.date}"> 
+   	 
+   	</p:calendar>
+    </p:column>
+    
+    <p:column>
+    <p:outputLabel value="Descripción: " />
+     <p:inputTextarea value="#{mov.descrip}"/>
+     </p:column>
+    
+</p:panelGrid>
+
+
+<p:commandButton id="btcomprobar" value="Comprobar" action= "#{mov.Comprobar}" update="gridC"   style="margin-right:20px;" styleClass="ui-priority-primary">
+
+</p:commandButton>
+
+<br/>
+<p:separator />
+<br/>
+    
+<p:panelGrid id="gridC"  name="GridC" columns="3">
+    <f:facet name="header">
+        <h:outputText value="Confirmar Alta de Movimiento"></h:outputText>
+    </f:facet>
+    <p:column>
+    <h:outputText value="Motivo Baja: " />
+    <h:outputText value="#{mov.tipoM}" />
+    </p:column>
+    
+    <p:column> 
+    <h:outputText value="Almacenamiento: " />
+   <h:outputText value="#{mov.almacenes}"/>
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Producto: " />
+   <h:outputText value="#{mov.producto}" />
+		</p:column>
+		<p:column>
+    <h:outputText value="Cantidad a Bajar: " />
+    <h:outputText value="#{mov.cantb}    " />
+    </p:column>
+     
+     <p:column>
+     <h:outputText value="Fecha: " />
+     <h:outputText value="#{mov.date}" />
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Costo: " />
+     <h:outputText value="#{mov.costo}" />
+      </p:column>
+     
+     <p:column>
+     <h:outputText value="Stock Antes de Bajar: " />
+    <h:outputText value="#{mov.sp}" />
+     </p:column>
+     <p:column>
+     <h:outputText value="Stock Después de Bajar: " />
+    <h:outputText value="#{mov.stockD}" style= "font-color:red"/>
+     </p:column>
+     
+     <p:column>
+     <h:outputText value="Descripción: " />
+    <h:outputText value="#{mov.descrip}" />
+     </p:column>
+       
+ </p:panelGrid>
+ <p:commandButton id="btguardar" value="Guardar" action= "#{mov.crearmov}" update="tabV:formC:msgs1" style="margin-right:20px;" styleClass="ui-priority-primary">
+<p:confirm header="Confirmation" message="Seguro quiere guardar?" icon="ui-icon ui-icon-exclamation-triangle" />
+</p:commandButton>
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Si" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon ui-icon-trash" />
+</p:confirmDialog>
+
+
+
+
+<br/>
+<p:separator />
+<br/>
+
+</h:form>
+</p:tab>
+
+
+</p:tabView>
+<br/>
+<p:separator />
+<br/>
+<h:outputText value="Powered by LaSenior"></h:outputText>
+
+<div><img src="https://www.dropbox.com/s/pfcaxw5woxepgrn/delete.png?dl=0" alt="" />
+<h:button >
+<i class="icono fas fa-trash-alt"></i></h:button>
+<h:form>
+<p:commandLink ajax="true" icon="icono fas fa-trash-alt" process="@this" value="hola">
+<i class="ui-icon ui-icon-trash" title="Borrar"></i></p:commandLink>
+
+</h:form>
+</div>
+
+</body> 
+</html>

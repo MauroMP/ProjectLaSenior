@@ -2,15 +2,45 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
-<Title> Gestion de Almacenes</Title>
+<title>Login</title>
 </h:head> 
 <body> 
-<h2>Gestion de Almacenes</h2>
+<img src="C:\Imagenes\logo.PNG" alt="Imagen del Proyecto 1" width="150" height="90"/>
+<h1>Gestión de Almacenes</h1>
 
+<h:form >
+	<p:panelGrid id="gridAlta"  name="Grid" columns="4">
+    	<f:facet name="header">
+        <h:outputText value="Login"></h:outputText>
+    	</f:facet>
+		<p:column>
+			<p:outputLabel value="Usuario" />
+			<p:inputText id ="txtusu"
+			value="#{usu.usuNombre}" required="true"
+			requiredMessage="Debe ingresar Usuario">
+			</p:inputText>
+			<br/>
+		</p:column>
+		<p:column>	
+			<p:outputLabel value="Contraseña" />
+			<p:password id ="txtcontra"
+			value="#{usu.usuPassword}" required="true"
+			requiredMessage="Debe ingresar Contraseña"/>
+			
 
-
+		</p:column>
+		
+		<br/>
+		<br/>
+		<p:column>
+		<p:commandButton action="#{usu.confirmarusuario}" value="Ingresar" />
+		<p:commandButton action="Cancelar" value="Cancelar" />
+		</p:column>
+	</p:panelGrid>
+</h:form>
 </body> 
 </html>

@@ -2,10 +2,46 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
-<h:head></h:head> 
-<body> 
+<h:head>
+<title>Menu Principal</title>
+</h:head> 
+<h:body> 
+<img src="C:\Imagenes\logo.PNG" alt="Imagen del Proyecto 1" width="150" height="90"/>
+<h1>Gestión de Almacenes</h1>
+<h2>Menú Principal </h2>
 
-</body> 
+<h:form>
+	<h:panelGrid column="4">
+		<p:column>
+			<h1>Productos</h1>
+			
+			<p:commandButton action="#{menu.nvoProd}" value="Nuevo Producto" />
+			<p:commandButton action="#{menu.eliProd}" value="Eliminar Producto" />
+			<p:commandButton action="#{menu.modProd}" value="Modificar Producto" />
+		</p:column>
+	</h:panelGrid>
+	
+	<h:panelGrid column="4">
+		<p:column>
+			<h1>Movimientos</h1>
+			<p:commandButton action="#{menu.altaMov}" value="Alta" />
+			<p:commandButton action="#{menu.bajaMov}" value="Baja" />
+		</p:column>
+	</h:panelGrid>
+	<h:panelGrid column="4">
+		<p:column>
+			<h1>Reportes</h1>
+			<p:commandButton action="#{menu.reporte}" value="Reportes" />
+		</p:column>
+	</h:panelGrid>
+	<br />
+	<br />
+	<p:commandButton action="Salir" value="Salir" />
+</h:form>
+
+</h:body>
+
 </html>

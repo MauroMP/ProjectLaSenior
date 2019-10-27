@@ -10,7 +10,8 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -18,7 +19,7 @@ import javax.inject.Named;
 
 
 import com.google.gson.Gson;
-
+import com.google.gson.JsonSyntaxException;
 
 
 
@@ -35,7 +36,6 @@ public class Familia implements Serializable{
 	
 	private String familias;
 	private String[] famnom;
-	private String fam;
 	private String url = "http://dominio.ddns.net:8086/ProyectoRest/rest/prod/obtnom";
 
 	public String getFamilia() {
@@ -46,22 +46,6 @@ public class Familia implements Serializable{
 		this.familias = familias;
 	}
 	
-	
-	
-	public String getFam() {
-		return fam;
-	}
-
-	public void setFam(String fam) {
-		this.fam = fam;
-	}
-
-	
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	private static String readAll(Reader rd) throws IOException {
 	    StringBuilder sb = new StringBuilder();
 	    int cp;

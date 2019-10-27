@@ -2,11 +2,68 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
+<h:head>
+<title>Almacenes</title>
+</h:head> 
 <body> 
+<p:tabView id="tabAlma">
+ <p:tab title="Reporte Almacenes">
+ <h:form>
 
+ <h:outputText value="Id Inicial: " /> <p:inputText value="#{almas.idi}" type="number" />   <h:outputText value="Id Final: " /> <p:inputText value="#{almas.idf}" type="number" /> <p:commandButton title="Buscar"  action="#{almas.buscar}" update="tablaAlma" styleClass="ui-priority-primary"></p:commandButton>
+
+ <br/>
+  <br/>
+  
+ <p:dataTable id="tablaAlma" var="alma" value="#{almas.listalmasb}">
+ 
+     <p:column style="width:35px" headerText="Id">
+        <h:outputText value="#{alma.almaId}" />
+        
+    </p:column>
+ 
+    <p:column headerText="Nombre"  filterBy="#{alma.almaNombre}" filterMatchMode="contains">
+    <h:outputText value="#{alma.almaNombre}" />
+           
+    </p:column>
+ 
+    <p:column  headerText="Can. Estiba" filterBy="#{alma.almaCanestiba}" filterMatchMode="contains">
+    <h:outputText value="#{alma.almaCanestiba}" />
+
+    </p:column>
+ 
+    <p:column headerText="Cap. Peso"  filterBy="#{alma.almaCappeso}" filterMatchMode="contains">
+        <h:outputText value="#{alma.almaCappeso}" />
+    </p:column>
+    
+    <p:column  headerText="Costo Oper." filterBy="#{alma.almaCostoop}" filterMatchMode="contains">
+     <h:outputText value="#{alma.almaCostoop}" />
+    </p:column>
+    
+    <p:column headerText="Descripcion" filterBy="#{alma.almaDescripcion}" filterMatchMode="contains">
+	<h:outputText value="#{alma.almaDescripcion}" />
+    </p:column>
+    
+    <p:column headerText="Volúmen"  filterBy="#{alma.almaVolumen}" filterMatchMode="contains">
+    <h:outputText value="#{alma.almaVolumen}" />
+               
+        </p:column>
+        
+         <p:column headerText="Local"  filterBy="#{alma.locale.locId}" filterMatchMode="contains">
+    <h:outputText value="#{alma.locale.locId}" />
+               
+        </p:column>
+ 
+ 
+ 
+ </p:dataTable>
+ </h:form>
+ </p:tab>
+
+</p:tabView>
 
 
 </body> 

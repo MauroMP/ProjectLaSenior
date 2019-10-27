@@ -19,7 +19,7 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
-	private long prodId;
+	private Long prodId;
 
 	
 	private String prodEstiba;
@@ -67,11 +67,11 @@ public class Producto implements Serializable {
 	public Producto() {
 	}
 
-	public long getProdId() {
+	public Long getProdId() {
 		return this.prodId;
 	}
 
-	public void setProdId(long prodId) {
+	public void setProdId(Long prodId) {
 		this.prodId = prodId;
 	}
 

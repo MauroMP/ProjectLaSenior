@@ -1,6 +1,7 @@
 package com.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,32 +17,28 @@ import javax.persistence.Table;
  * The persistent class for the LOCALES database table.
  * 
  */
-@Entity
-@Table(name="LOCALES")
-@NamedQuery(name="Locale.findAll", query="SELECT l FROM Locale l")
+
 public class Locale implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="LOC_ID")
+
 	private Long locId;
 
-	@Column(name="LOC_DESCRIPCION")
+
 	private String locDescripcion;
 
-	@Column(name="LOC_DIRECCION")
+
 	private String locDireccion;
 
-	@Column(name="LOC_TIPO")
+
 	private String locTipo;
 
-	//bi-directional many-to-one association to Almacenamiento
-	//@OneToMany(mappedBy="locale", fetch=FetchType.LAZY)
-	//private List<Almacenamiento> almacenamientos;
 
-	//bi-directional many-to-one association to Ciudade
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="CIU_ID")
+
+	private List<Almacenamiento> almacenamientos;
+
+
+
 	private Ciudade ciudade;
 
 	public Locale() {
@@ -79,7 +76,7 @@ public class Locale implements Serializable {
 		this.locTipo = locTipo;
 	}
 
-	/*public List<Almacenamiento> getAlmacenamientos() {
+	public List<Almacenamiento> getAlmacenamientos() {
 		return this.almacenamientos;
 	}
 
@@ -99,7 +96,7 @@ public class Locale implements Serializable {
 		almacenamiento.setLocale(null);
 
 		return almacenamiento;
-	}*/
+	}
 
 	public Ciudade getCiudade() {
 		return this.ciudade;
