@@ -1,6 +1,8 @@
 package com.example.lasenioralmacenes.Interfaces;
 
+import com.example.lasenioralmacenes.Modelos.Almacenamiento;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
+import com.example.lasenioralmacenes.Modelos.Producto;
 
 import java.util.List;
 
@@ -35,7 +37,17 @@ public interface RestMovs {
     @GET("mov/obtnom")
     Call<String[]> getAlmanom();
 
+    @GET("prod/{nombre}")
+    Call<Producto> getProd (@Path("nombre") String nombre);
 
+    @GET ("mov/obtalma/{nombre}")
+    Call<Almacenamiento> getAlma (@Path("nombre") String nombre);
+
+    @GET ("prod/stockprod/{nombre}")
+    Call<Double> getStock (@Path("nombre") String nombre);
+
+    @PUT ("prod/actualizar")
+    Call<Producto> setProdStock (@Body Producto producto);
 
 
 

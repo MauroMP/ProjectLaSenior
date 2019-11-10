@@ -45,6 +45,7 @@ public class Movimientos_Activity extends AppCompatActivity {
         bundle = getIntent().getExtras();
         usu = (Usuario) bundle.getSerializable("Usuario");
         String in = (String)bundle.getSerializable("mensaje");
+        String ex = (String)bundle.getSerializable("msgCrear");
 
         btmovs.setOnClickListener(new View.OnClickListener() {
             @Override
