@@ -29,6 +29,12 @@ public interface RestMovs {
     @POST("mov/nvomov")
     Call<Movimiento> crearMov(@Body Movimiento movimiento);
 
+    @GET("prod/obtnom")
+    Call<String[]> getProdnom();
+
+    @GET("mov/obtnom")
+    Call<String[]> getAlmanom();
+
 
 
 

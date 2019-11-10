@@ -2,9 +2,11 @@ package com.example.lasenioralmacenes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class Movimientos_Activity extends AppCompatActivity {
     Button btmovs;
     ListView listmovs;
     Usuario usu;
+    ImageView btcrear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class Movimientos_Activity extends AppCompatActivity {
 
         btmovs = findViewById(R.id.btListamovs);
         listmovs = findViewById(R.id.listmov);
+        btcrear = findViewById(R.id.btCrear);
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
@@ -46,6 +50,15 @@ public class Movimientos_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 listarMovs();
+
+            }
+        });
+
+        btcrear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Movimientos_Activity.this, Addmov_Activity.class);
+                startActivity(intent);
 
             }
         });

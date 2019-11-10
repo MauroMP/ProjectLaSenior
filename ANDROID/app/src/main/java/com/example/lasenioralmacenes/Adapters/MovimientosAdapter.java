@@ -49,7 +49,6 @@ public class MovimientosAdapter extends ArrayAdapter {
         TextView movProducto = rowView.findViewById(R.id.Producto);
         TextView movAlmacen = rowView.findViewById(R.id.Almacen);
         TextView movTipo = rowView.findViewById(R.id.tipo);
-        ImageView del = rowView.findViewById(R.id.borrarMov);
         final Date date = listmovs.get(posicion).getMovFecha();
 
 
