@@ -70,25 +70,23 @@
 
     <TextView
         android:id="@+id/idMov"
-        android:layout_width="34dp"
-        android:layout_height="14dp"
+        android:layout_width="70dp"
+        android:layout_height="25dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintEnd_toStartOf="@+id/tipo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <TextView
         android:id="@+id/tipo"
-        android:layout_width="29dp"
-        android:layout_height="16dp"
+        android:layout_width="70dp"
+        android:layout_height="27dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintHorizontal_bias="0.619"
-        app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
     <TextView
         android:id="@+id/Producto"
@@ -126,8 +124,8 @@
 
     <TextView
         android:id="@+id/Costo"
-        android:layout_width="27dp"
-        android:layout_height="15dp"
+        android:layout_width="33dp"
+        android:layout_height="25dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
@@ -136,8 +134,8 @@
 
     <TextView
         android:id="@+id/cantidad"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
+        android:layout_width="32dp"
+        android:layout_height="25dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toStartOf="@+id/guideline14"

@@ -2,6 +2,8 @@ package com.example.lasenioralmacenes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ public class MovActivity extends AppCompatActivity {
     Retrofit retrofit;
     RestMovs restMov;
     Movimiento movimiento;
+    boolean borrado;
 
 
     @Override
@@ -88,28 +91,14 @@ public class MovActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Call<Movimiento> delmov = restMov.delMov(movimiento);
-                delmov.enqueue(new Callback<Movimiento>() {
-                    @Override
-                    public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
-                        if (!response.isSuccessful()){
-                            Toast.makeText(MovActivity.this, "Codigo" + response.code(), Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        Toast.makeText(MovActivity.this, "Movimiento eliminado", Toast.LENGTH_LONG).show();
+                Toast.makeText(MovActivity.this, "Movimiento: " + movimiento.getMovId().toString(), Toast.LENGTH_LONG).show();
+                deleteMov(movimiento);
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<Movimiento> call, Throwable t) {
-
-                    }
-
-
+            }
                 });
 
 
-                save.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -134,16 +123,41 @@ public class MovActivity extends AppCompatActivity {
 
                     }
                 });
-            }
-
-
-
-
-
-
-        });
-
-
 
     }
+
+    public void deleteMov (Movimiento movim){
+
+        Call<Boolean> delmov = restMov.delMov(movim);
+        delmov.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                borrado = false;
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MovActivity.this, "Codigo" + response.code(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText( MovActivity.this, "Movimiento eliminado", Toast.LENGTH_LONG).show();
+                borrado = true;
+                Intent intent = new Intent(MovActivity.this, Movimientos_Activity.class);
+                intent.putExtra("mensaje", "Movimiento Eliminado");
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(MovActivity.this, "Movimiento: " + movimiento.getMovId().toString() + "no borrado" + t, Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+
 }

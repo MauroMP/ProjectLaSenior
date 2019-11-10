@@ -40,6 +40,7 @@ public class Movimientos_Activity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
         usu = (Usuario) bundle.getSerializable("Usuario");
+        String in = (String)bundle.getSerializable("mensaje");
 
         btmovs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,8 @@ public class Movimientos_Activity extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 
@@ -81,4 +84,6 @@ public class Movimientos_Activity extends AppCompatActivity {
         });
 
     }
+
+
 }
