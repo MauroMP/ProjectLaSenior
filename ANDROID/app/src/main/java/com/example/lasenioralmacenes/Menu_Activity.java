@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.lasenioralmacenes.Modelos.Usuario;
 
@@ -13,10 +14,11 @@ import java.io.Serializable;
 
 public class Menu_Activity extends AppCompatActivity {
 
-    Button btProductos;
-    Button btMovimientos;
-    Button btReportes;
-    Usuario usu;
+    private Button btProductos;
+    private Button btMovimientos;
+    private Button btReportes;
+    private Usuario usu;
+    private TextView textUsu;
 
 
     @Override
@@ -26,6 +28,7 @@ public class Menu_Activity extends AppCompatActivity {
     btProductos = findViewById(R.id.btProductos);
     btMovimientos = findViewById(R.id.btMovimientos);
     btReportes = findViewById(R.id.btAlmacenes);
+    textUsu = findViewById(R.id.textUsuario);
 
     Bundle bundle = new Bundle();
     bundle = getIntent().getExtras();
@@ -53,6 +56,9 @@ public class Menu_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        textUsu.setText(usu.getUsuNombre() + "\n"
+                + usu.getUsuApellido() + "\n" + usu.getUsuCorreo());
 
     }
 

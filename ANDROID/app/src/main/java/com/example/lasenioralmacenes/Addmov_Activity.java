@@ -172,9 +172,9 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
     public void guardarMov() {
 
-        spinnerprod.OnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerprod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 sprod = adapterView.getItemAtPosition(i).toString();
 
                 Call<Producto> productoCall = restMov.getProd(sprod);
@@ -196,11 +196,16 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
                 });
 
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
 
-        spinneralma.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinneralma.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String salma = adapterView.getItemAtPosition(i).toString();
                 Call<Almacenamiento> almacenamientoCall = restMov.getAlma(salma);
                 almacenamientoCall.enqueue(new Callback<Almacenamiento>() {
@@ -221,11 +226,16 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
                     }
                 });
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
 
-        spinnertipo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnertipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String stipo = adapterView.getItemAtPosition(i).toString();
                 String tipo = null;
                 if (stipo.equals("Perdida")) {
@@ -235,6 +245,11 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
                     tipo = "M";
                 }
                 movg.setMovTipo(tipo);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
