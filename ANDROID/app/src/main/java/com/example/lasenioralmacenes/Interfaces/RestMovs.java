@@ -28,7 +28,7 @@ public interface RestMovs {
     @GET("mov/{id}")
     Call<Movimiento> getMovId(@Path("id") Long id);
 
-    @POST("mov/nvomov")
+    @POST("mov/addmov")
     Call<Movimiento> crearMov(@Body Movimiento movimiento);
 
     @GET("prod/obtnom")

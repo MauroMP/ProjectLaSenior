@@ -34,10 +34,10 @@ public class Menu_Activity extends AppCompatActivity {
     bundle = getIntent().getExtras();
         usu = (Usuario) bundle.getSerializable("Usuario");
 
-        if(usu.getPerfile().equals("Operador")){
+        if(usu.getPerfile().getPerfNombre().equals("Operador")){
             desactivarBotones("Operador");
         }
-        if(usu.getPerfile().equals("Supervisor")){
+        if(usu.getPerfile().getPerfNombre().equals("Supervisor")){
             desactivarBotones("Supervisor");
         }
 
@@ -58,7 +58,7 @@ public class Menu_Activity extends AppCompatActivity {
         });
 
         textUsu.setText(usu.getUsuNombre() + "\n"
-                + usu.getUsuApellido() + "\n" + usu.getUsuCorreo());
+                + usu.getUsuApellido() + "\n" + usu.getUsuCorreo()+"\n" + usu.getPerfile().getPerfNombre());
 
     }
 

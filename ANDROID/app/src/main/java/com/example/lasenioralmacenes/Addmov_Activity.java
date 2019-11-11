@@ -50,8 +50,12 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     private String[] almas;
     private int dia, mes, ano;
     private String sprod;
-    private Double canti;
+
     private Producto prod;
+    private Almacenamiento almacenamiento;
+    private String tipo;
+    private Double cantS;
+    String prueba;
     Movimiento movg = new Movimiento();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://dominio.ddns.net:8086/ProyectoRest/rest/")
@@ -93,11 +97,106 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 guardarMov();
+                prueba = prod.getProdNombre();
+                Toast.makeText(Addmov_Activity.this, prueba, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        spinnertipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String stipo = adapterView.getItemAtPosition(i).toString();
+
+                if (stipo.equals("Perdida")) {
+                    tipo = "P";
+                }
+                if (stipo.equals("Movimiento")) {
+                    tipo = "M";
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerprod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                sprod = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(Addmov_Activity.this, "Proucto: " +sprod, Toast.LENGTH_SHORT).show();
+
+                Call<Producto> productoCall = restMov.getProd(sprod);
+                productoCall.enqueue(new Callback<Producto>() {
+                    @Override
+                    public void onResponse(Call<Producto> call, Response<Producto> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }else {
+                            prod = response.body();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Producto> call, Throwable t) {
+                        Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
+                        return;
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinneralma.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String salma = adapterView.getItemAtPosition(i).toString();
+
+                Call<Almacenamiento> almacenamientoCall = restMov.getAlma(salma);
+                almacenamientoCall.enqueue(new Callback<Almacenamiento>() {
+                    @Override
+                    public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
+                        if (!response.isSuccessful()) {
+                            Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }else {
+                            almacenamiento = response.body();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Almacenamiento> call, Throwable t) {
+                        Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
+                        return;
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
 
     }
+        
+        
+
+
+
 
     private void getProds() {
 
@@ -121,9 +220,8 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
             }
         });
-
-
     }
+       
 
     public void getAlmas() {
 
@@ -171,87 +269,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     }
 
     public void guardarMov() {
-
-        spinnerprod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                sprod = adapterView.getItemAtPosition(i).toString();
-
-                Call<Producto> productoCall = restMov.getProd(sprod);
-                productoCall.enqueue(new Callback<Producto>() {
-                    @Override
-                    public void onResponse(Call<Producto> call, Response<Producto> response) {
-                        if (!response.isSuccessful()) {
-                            Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        prod = response.body();
-                        movg.setProducto(prod);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Producto> call, Throwable t) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinneralma.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String salma = adapterView.getItemAtPosition(i).toString();
-                Call<Almacenamiento> almacenamientoCall = restMov.getAlma(salma);
-                almacenamientoCall.enqueue(new Callback<Almacenamiento>() {
-                    @Override
-                    public void onResponse(Call<Almacenamiento> call, Response<Almacenamiento> response) {
-                        if (!response.isSuccessful()) {
-                            Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        Almacenamiento almacenamiento = response.body();
-                        movg.setAlmacenamiento(almacenamiento);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<Almacenamiento> call, Throwable t) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnertipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String stipo = adapterView.getItemAtPosition(i).toString();
-                String tipo = null;
-                if (stipo.equals("Perdida")) {
-                    tipo = "P";
-                }
-                if (stipo.equals("Movimiento")) {
-                    tipo = "M";
-                }
-                movg.setMovTipo(tipo);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
+        Double canti = Double.valueOf(cant.getText().toString());
 
         if(date == null) {
             Toast.makeText(Addmov_Activity.this, "Debe ingresar fecha", Toast.LENGTH_SHORT).show();
@@ -259,49 +277,36 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         }else{
             movg.setMovFecha(date);
         }
-
-        if (cant.getText() == null) {
+        if (canti == null) {
             Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
-            return;
 
-        }else{
-            canti = Double.valueOf(cant.getText().toString());
+        }else {
+            Double cantS = controlStock(sprod);
+            if (canti > cantS) {
+                Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + cant.toString(), Toast.LENGTH_SHORT).show();
 
-            Call<Double> cantCall = restMov.getStock(sprod);
-            cantCall.enqueue(new Callback<Double>() {
-                @Override
-                public void onResponse(Call<Double> call, Response<Double> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    Double cant = response.body();
-                    if (canti < cant) {
-                        Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + cant.toString(), Toast.LENGTH_SHORT).show();
-                        return;
-                    } else {
-                        movg.setMovCantidad(cant);
-                        Double s = canti - cant;
-                        prod.setProdStktotal(s);
-                        setprod(prod);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Double> call, Throwable t) {
-
-                }
-            });
+            } else {
+                Double s = cantS - canti;
+                prod.setProdStktotal(s);
+                setprod(prod);
+            }
 
         }
 
         if(descip.getText() == null){
 
             Toast.makeText(Addmov_Activity.this, "Ingrese una descripción por favor", Toast.LENGTH_SHORT).show();
-            return;
+
         }else{
             movg.setMovDescripcion(descip.getText().toString());
         }
+
+
+        movg.setProducto(prod);
+        movg.setMovTipo(tipo);
+        movg.setAlmacenamiento(almacenamiento);
+        movg.setMovCantidad(canti);
+
 
         Call<Movimiento> movimientoCall = restMov.crearMov(movg);
         movimientoCall.enqueue(new Callback<Movimiento>() {
@@ -322,6 +327,8 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
+                Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
+                return;
 
             }
         });
@@ -347,4 +354,37 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             }
         });
     }
-}
+
+    public Double controlStock(String sprod) {
+        final Double[] stock = {0.0};
+
+            Call<Double> cantCall = restMov.getStock(sprod);
+            cantCall.enqueue(new Callback<Double>() {
+                @Override
+                public void onResponse(Call<Double> call, Response<Double> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    stock[0] = response.body();
+
+                }
+
+                @Override
+                public void onFailure(Call<Double> call, Throwable t) {
+                    Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+            });
+
+
+    return stock[0];
+    }
+
+
+    }
+
+
+
