@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/btProductos"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="215dp"
         android:layout_height="60dp"
         android:layout_marginStart="89dp"
@@ -22,6 +23,7 @@
 
     <Button
         android:id="@+id/btMovimientos"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="215dp"
         android:layout_height="60dp"
         android:layout_marginStart="89dp"
@@ -36,6 +38,7 @@
 
     <Button
         android:id="@+id/btAlmacenes"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="215dp"
         android:layout_height="60dp"
         android:layout_marginStart="89dp"
@@ -61,6 +64,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btSalir"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="146dp"
+        android:layout_height="56dp"
+        android:backgroundTint="#2D3FA3"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textUsuario" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

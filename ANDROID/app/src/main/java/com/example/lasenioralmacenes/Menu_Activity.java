@@ -19,6 +19,7 @@ public class Menu_Activity extends AppCompatActivity {
     private Button btReportes;
     private Usuario usu;
     private TextView textUsu;
+    private Button btSalir;
 
 
     @Override
@@ -29,6 +30,18 @@ public class Menu_Activity extends AppCompatActivity {
     btMovimientos = findViewById(R.id.btMovimientos);
     btReportes = findViewById(R.id.btAlmacenes);
     textUsu = findViewById(R.id.textUsuario);
+    btSalir = findViewById(R.id.btSalir);
+
+
+
+    btSalir.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent(Menu_Activity.this, MainActivity.class);
+            startActivity(intent);
+        }
+    });
+
 
     Bundle bundle = new Bundle();
     bundle = getIntent().getExtras();

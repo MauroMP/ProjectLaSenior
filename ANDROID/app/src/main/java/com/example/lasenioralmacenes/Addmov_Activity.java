@@ -1,11 +1,13 @@
 package com.example.lasenioralmacenes;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +30,7 @@ import com.example.lasenioralmacenes.Modelos.Producto;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,16 +49,15 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     private TextView fecha;
     private EditText cant;
     private EditText descip;
-    private String[] prods;
-    private String[] almas;
-    private int dia, mes, ano;
     private String sprod;
-
+    private ImageView btAtras;
     private Producto prod;
     private Almacenamiento almacenamiento;
     private String tipo;
-    private Double cantS;
-    String prueba;
+    private Double costo = 0.0;
+    private String stock;
+    private Double stockP;
+
     Movimiento movg = new Movimiento();
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://dominio.ddns.net:8086/ProyectoRest/rest/")
@@ -77,11 +79,20 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         fecha = findViewById(R.id.etFecha);
         cant = findViewById(R.id.eTCant);
         descip = findViewById(R.id.eTDescrip);
+        btAtras = findViewById(R.id.btAtras);
 
 
         getProds();
         getAlmas();
         getTipo();
+
+        btAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
+                startActivity(intent);
+            }
+        });
 
         btFecha.setOnClickListener(new View.OnClickListener() {
                                        @Override
@@ -97,8 +108,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 guardarMov();
-                prueba = prod.getProdNombre();
-                Toast.makeText(Addmov_Activity.this, prueba, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Addmov_Activity.this, "Nuevo Movimiento", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -195,9 +205,6 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         
         
 
-
-
-
     private void getProds() {
 
         Call<String[]> prodnom = restMov.getProdnom();
@@ -256,6 +263,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     }
 
 
+
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         Calendar c = Calendar.getInstance();
@@ -269,7 +277,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     }
 
     public void guardarMov() {
-        Double canti = Double.valueOf(cant.getText().toString());
+
 
         if(date == null) {
             Toast.makeText(Addmov_Activity.this, "Debe ingresar fecha", Toast.LENGTH_SHORT).show();
@@ -277,19 +285,13 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         }else{
             movg.setMovFecha(date);
         }
-        if (canti == null) {
-            Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
-
-        }else {
-            Double cantS = controlStock(sprod);
-            if (canti > cantS) {
-                Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + cant.toString(), Toast.LENGTH_SHORT).show();
-
-            } else {
-                Double s = cantS - canti;
-                prod.setProdStktotal(s);
-                setprod(prod);
+        if (setCantidad()) {
+            Double cante = Double.parseDouble(cant.getText().toString());
+            costo = prod.getProdPrecio()* cante;
+            movg.setMovCantidad(cante);
             }
+            else {
+
 
         }
 
@@ -302,10 +304,12 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         }
 
 
+        movg.setMovCosto(costo);
         movg.setProducto(prod);
         movg.setMovTipo(tipo);
         movg.setAlmacenamiento(almacenamiento);
-        movg.setMovCantidad(canti);
+
+
 
 
         Call<Movimiento> movimientoCall = restMov.crearMov(movg);
@@ -355,33 +359,38 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         });
     }
 
-    public Double controlStock(String sprod) {
-        final Double[] stock = {0.0};
 
-            Call<Double> cantCall = restMov.getStock(sprod);
-            cantCall.enqueue(new Callback<Double>() {
-                @Override
-                public void onResponse(Call<Double> call, Response<Double> response) {
-                    if (!response.isSuccessful()) {
-                        Toast.makeText(Addmov_Activity.this, "Codigo: " + response.code(), Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+    public boolean setCantidad(){
+        boolean gt = false;
+        boolean it = false;
+        Double c = 0.0;
+        Double st;
+        if(cant.getText().toString().equals("")){
+            Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
+        }else {
+            String s = cant.getText().toString();
+            c = Double.parseDouble(s);
+        }
+        stockP=prod.getProdStktotal();
+        if(stockP!=null) {
+            if (stockP < c) {
+                Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + stockP.toString(), Toast.LENGTH_SHORT).show();
 
-                    stock[0] = response.body();
-
-                }
-
-                @Override
-                public void onFailure(Call<Double> call, Throwable t) {
-                    Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
-                    return;
-
-                }
-            });
-
-
-    return stock[0];
+            } else {
+                it = true;
+            }
+         if(it){
+             st = stockP - c;
+             Producto eprod;
+             eprod = prod;
+             eprod.setProdStktotal(st);
+             setprod(eprod);
+             gt = true;
+         }
+        }
+        return gt;
     }
+
 
 
     }

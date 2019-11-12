@@ -43,11 +43,14 @@ public interface RestMovs {
     @GET ("mov/obtalma/{nombre}")
     Call<Almacenamiento> getAlma (@Path("nombre") String nombre);
 
-    @GET ("prod/stockprod/{nombre}")
+    @GET ("prod/stk/{nombre}")
     Call<Double> getStock (@Path("nombre") String nombre);
 
-    @PUT ("prod/actualizar")
+    @PUT ("prod/actualiza")
     Call<Producto> setProdStock (@Body Producto producto);
+
+    @GET ("prod/costoprod/{nombre}")
+    Call<List<Double>> getCosto (@Path("nombre") String nombre);
 
 
 

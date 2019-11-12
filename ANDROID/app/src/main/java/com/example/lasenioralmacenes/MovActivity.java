@@ -27,9 +27,11 @@ public class MovActivity extends AppCompatActivity {
     private TextView tprod;
     private TextView talma;
     private TextView ttipo;
+    private TextView txDescrip;
     private ImageView del;
     private ImageView save;
     private ImageView update;
+    private ImageView btAtras;
     Retrofit retrofit;
     RestMovs restMov;
     Movimiento movimiento;
@@ -50,8 +52,11 @@ public class MovActivity extends AppCompatActivity {
         tprod = findViewById(R.id.Producto);
         talma = findViewById(R.id.Almacen);
         ttipo = findViewById(R.id.tipo);
+        txDescrip = findViewById(R.id.txtDescrip);
         del = findViewById(R.id.btdel);
         save = findViewById(R.id.btsave);
+        btAtras = findViewById(R.id.btAtras);
+
 
         final Movimiento mov = (Movimiento)bundle.getSerializable("movid");
 
@@ -77,12 +82,21 @@ public class MovActivity extends AppCompatActivity {
                 tprod.setText(movimiento.getProducto().getProdNombre());
                 talma.setText(movimiento.getAlmacenamiento().getAlmaNombre());
                 ttipo.setText(movimiento.getMovTipo());
+                txDescrip.setText(movimiento.getMovDescripcion());
 
             }
 
             @Override
             public void onFailure(Call<Movimiento> call, Throwable t) {
 
+            }
+        });
+
+        btAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MovActivity.this, Movimientos_Activity.class);
+                startActivity(intent);
             }
         });
 
