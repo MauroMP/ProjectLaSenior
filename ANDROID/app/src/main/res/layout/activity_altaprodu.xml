@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_altaprodu">
+
+    <TextView
+        android:id="@+id/altaprod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Alta"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnProductoList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="137dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:scrollIndicators="left">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre"/>
+
+            <EditText
+                android:id="@+id/nomProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Almacenamiento"
+                />
+            <Spinner
+                android:id="@+id/alma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Familia"
+                />
+
+            <Spinner
+                android:id="@+id/fami"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stock Minimo"
+            />
+
+            <EditText
+                android:id="@+id/stkmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Stock Total"
+            />
+
+            <EditText
+                android:id="@+id/stktotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Segmentacion"
+            />
+
+            <CheckedTextView
+                android:checked="@+id/segProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estiba"
+            />
+
+            <CheckedTextView
+                android:checked="@+id/estProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Peso"
+            />
+
+            <EditText
+                android:id="@+id/peso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Volumen"
+            />
+
+            <EditText
+                android:id="@+id/volProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lote"
+            />
+
+            <EditText
+                android:id="@+id/loteProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+            />
+
+            <EditText
+                android:id="@+id/preProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fec. Elaboracion"
+            />
+
+            <CalendarView
+                android:id="@+id/fecela"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fec. Vencimiento"
+            />
+
+            <CalendarView
+                android:id="@+id/fecvenc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            />
+
+            <Button
+                android:id="@+id/btnSaveTernera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="#FF144DA9"
+                android:drawableRight="@android:drawable/ic_menu_save"
+                android:text="Guardar"
+                android:textColor="#ffffff" />
+
+            <Button
+                android:id="@+id/btnDelTernera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#c60808"
+                android:drawableRight="@android:drawable/ic_menu_delete"
+                android:text="Borrar"
+                android:textColor="#ffffff" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

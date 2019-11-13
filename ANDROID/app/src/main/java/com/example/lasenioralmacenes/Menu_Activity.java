@@ -57,7 +57,9 @@ public class Menu_Activity extends AppCompatActivity {
         btProductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent =  new Intent();
+                Intent intent =  new Intent(Menu_Activity.this, activity_Producto.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
             }
         });
 
@@ -71,7 +73,7 @@ public class Menu_Activity extends AppCompatActivity {
         });
 
         textUsu.setText(usu.getUsuNombre() + "\n"
-                + usu.getUsuApellido() + "\n" + usu.getUsuCorreo()+"\n" + usu.getPerfile().getPerfNombre());
+              + usu.getUsuApellido() + "\n" + usu.getUsuCorreo()+"\n" + usu.getPerfile().getPerfNombre());
 
     }
 

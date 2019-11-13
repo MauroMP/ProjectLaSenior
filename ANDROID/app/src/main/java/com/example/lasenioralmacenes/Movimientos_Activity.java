@@ -43,7 +43,7 @@ public class Movimientos_Activity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
-        usu = (Usuario) bundle.getSerializable("Usuario");
+        //usu = (Usuario) bundle.getSerializable("Usuario");
         String in = (String)bundle.getSerializable("mensaje");
         String ex = (String)bundle.getSerializable("msgCrear");
 

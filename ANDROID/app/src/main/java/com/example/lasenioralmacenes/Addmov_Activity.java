@@ -57,6 +57,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     private Double costo = 0.0;
     private String stock;
     private Double stockP;
+    private String msgError;
 
     Movimiento movg = new Movimiento();
     Retrofit retrofit = new Retrofit.Builder()
@@ -107,9 +108,12 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         btGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarMov();
-                Toast.makeText(Addmov_Activity.this, "Nuevo Movimiento", Toast.LENGTH_SHORT).show();
-            }
+                if(guardarMov()) {
+                    Toast.makeText(Addmov_Activity.this, "Nuevo Movimiento", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Addmov_Activity.this, "Error con algún dato al intentar crear el movimiento " + "\n" + msgError, Toast.LENGTH_SHORT).show();
+                }
+                }
         });
 
         spinnertipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -276,66 +280,79 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
     }
 
-    public void guardarMov() {
+    public boolean guardarMov() {
+        boolean guarda = false;
+        boolean guardaC = false;
+        boolean guardaF = false;
+        boolean guardaD = false;
 
 
         if(date == null) {
             Toast.makeText(Addmov_Activity.this, "Debe ingresar fecha", Toast.LENGTH_SHORT).show();
-            return;
+            msgError = "Debe ingresar fecha";
+
         }else{
             movg.setMovFecha(date);
+            guardaF = true;
         }
         if (setCantidad()) {
             Double cante = Double.parseDouble(cant.getText().toString());
             costo = prod.getProdPrecio()* cante;
             movg.setMovCantidad(cante);
+            guardaC = true;
             }
             else {
-
+            Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
+            msgError = "Debe ingresar cantidad";
 
         }
 
-        if(descip.getText() == null){
+        if(descip.getText().toString().equals("")){
 
             Toast.makeText(Addmov_Activity.this, "Ingrese una descripción por favor", Toast.LENGTH_SHORT).show();
+            msgError = "Ingrese una descripción por favor";
+
 
         }else{
             movg.setMovDescripcion(descip.getText().toString());
+            guardaD = true;
         }
 
+        if (guardaC && guardaD && guardaF) {
 
-        movg.setMovCosto(costo);
-        movg.setProducto(prod);
-        movg.setMovTipo(tipo);
-        movg.setAlmacenamiento(almacenamiento);
+            movg.setMovCosto(costo);
+            movg.setProducto(prod);
+            movg.setMovTipo(tipo);
+            movg.setAlmacenamiento(almacenamiento);
 
 
+            Call<Movimiento> movimientoCall = restMov.crearMov(movg);
+            movimientoCall.enqueue(new Callback<Movimiento>() {
+                @Override
+                public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
 
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(Addmov_Activity.this, "Código: " + response.code(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String ex = "Movimiento creado con exito!!";
+                    Toast.makeText(Addmov_Activity.this, "Movimiento fue creado con exito!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
+                    intent.putExtra("msgCrear", ex);
+                    startActivity(intent);
 
-        Call<Movimiento> movimientoCall = restMov.crearMov(movg);
-        movimientoCall.enqueue(new Callback<Movimiento>() {
-            @Override
-            public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
-
-                if (!response.isSuccessful()) {
-                    Toast.makeText(Addmov_Activity.this, "Código: " + response.code(), Toast.LENGTH_SHORT).show();
-                    return;
                 }
-                String ex = "Movimiento creado con exito!!";
-                Toast.makeText(Addmov_Activity.this, "Movimiento fue creado con exito!!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
-                intent.putExtra("msgCrear", ex);
-                startActivity(intent);
 
-            }
+                @Override
+                public void onFailure(Call<Movimiento> call, Throwable t) {
+                    Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
+                    return;
 
-            @Override
-            public void onFailure(Call<Movimiento> call, Throwable t) {
-                Toast.makeText(Addmov_Activity.this, "Codigo: " + t, Toast.LENGTH_SHORT).show();
-                return;
-
-            }
-        });
+                }
+            });
+            guarda = true;
+        }
+        return guarda;
 
     }
 
@@ -362,31 +379,30 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
     public boolean setCantidad(){
         boolean gt = false;
-        boolean it = false;
-        Double c = 0.0;
+        Double c = null;
         Double st;
-        if(cant.getText().toString().equals("")){
+        String s = cant.getText().toString();
+        if(s.equals("")){
             Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
-        }else {
-            String s = cant.getText().toString();
-            c = Double.parseDouble(s);
-        }
-        stockP=prod.getProdStktotal();
-        if(stockP!=null) {
-            if (stockP < c) {
-                Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + stockP.toString(), Toast.LENGTH_SHORT).show();
 
-            } else {
-                it = true;
-            }
-         if(it){
-             st = stockP - c;
-             Producto eprod;
-             eprod = prod;
-             eprod.setProdStktotal(st);
-             setprod(eprod);
-             gt = true;
-         }
+        }else {
+            c = Double.parseDouble(s);
+            Toast.makeText(Addmov_Activity.this, "Cantidad " + s, Toast.LENGTH_SHORT).show();
+            stockP=prod.getProdStktotal();
+            if(stockP!=null) {
+                if (stockP < c) {
+                    Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + stockP.toString(), Toast.LENGTH_SHORT).show();
+
+                } else {
+                    st = stockP - c;
+                    Producto eprod;
+                    eprod = prod;
+                    eprod.setProdStktotal(st);
+                    setprod(eprod);
+                    gt = true;
+                }
+        }
+
         }
         return gt;
     }

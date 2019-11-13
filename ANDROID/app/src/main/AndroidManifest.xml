@@ -16,7 +16,11 @@
         <activity android:name=".MovActivity" />
         <activity android:name=".Movimientos_Activity" />
         <activity android:name=".Menu_Activity" />
+        <activity android:name=".activity_altaprodu" />
+        <activity android:name=".activity_Producto" />
+        <activity android:name=".PrdActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Bienvenido " + usu.getUsuNombre(), Toast.LENGTH_LONG).show();
 
                     }else{
-                        Toast.makeText(MainActivity.this, "Contraseña incorrecta", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
                     }
                 }else{
-                    Toast.makeText(MainActivity.this, "Usuario: " + NombreUsu.getText().toString() + " incorrecto", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Usuario o Cantraseña incorrecta", Toast.LENGTH_LONG).show();
                 }
 
             }
