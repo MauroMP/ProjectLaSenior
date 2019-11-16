@@ -6,25 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
-import com.example.lasenioralmacenes.Interfaces.RestMovs;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
 import com.example.lasenioralmacenes.MovActivity;
 import com.example.lasenioralmacenes.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static java.text.DateFormat.getDateInstance;
 
@@ -46,13 +38,13 @@ public class MovimientosAdapter extends ArrayAdapter {
         View rowView = inflater.inflate(R.layout.row_movimientos, parent, false);
 
         TextView movId = rowView.findViewById(R.id.ids);
-        TextView movFecha = rowView.findViewById(R.id.fecha);
-        TextView movCosto = rowView.findViewById(R.id.Costo);
-        TextView movCantidad = rowView.findViewById(R.id.cantidad);
-        TextView movProducto = rowView.findViewById(R.id.Producto);
-        TextView movAlmacen = rowView.findViewById(R.id.Almacen);
-        TextView movTipo = rowView.findViewById(R.id.tipo);
-        TextView movDescrip = rowView.findViewById(R.id.descrip);
+        TextView movFecha = rowView.findViewById(R.id.txtNombreA);
+        TextView movCosto = rowView.findViewById(R.id.CostoOp);
+        TextView movCantidad = rowView.findViewById(R.id.almaCapPeso);
+        TextView movProducto = rowView.findViewById(R.id.aLocale);
+        TextView movAlmacen = rowView.findViewById(R.id.almaVol);
+        TextView movTipo = rowView.findViewById(R.id.almaCantEs);
+        TextView movDescrip = rowView.findViewById(R.id.almadescrip);
         final Date date = listmovs.get(posicion).getMovFecha();
 
 

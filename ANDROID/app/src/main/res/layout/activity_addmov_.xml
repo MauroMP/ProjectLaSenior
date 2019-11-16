@@ -105,7 +105,7 @@
         app:layout_constraintGuide_begin="320dp" />
 
     <TextView
-        android:id="@+id/tipoView"
+        android:id="@+id/cantEstibaView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tipo:"
@@ -114,7 +114,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline18" />
 
     <TextView
-        android:id="@+id/cantidadView"
+        android:id="@+id/capPesoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cantidad:"
@@ -191,7 +191,7 @@
         app:srcCompat="@android:drawable/ic_menu_save" />
 
     <ImageView
-        android:id="@+id/btAtras"
+        android:id="@+id/btAtrasA"
         android:layout_width="46dp"
         android:layout_height="37dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"

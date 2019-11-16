@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovActivity">
+    tools:context=".AlmaActivity">
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -27,17 +28,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="150dp" />
 
-    <ImageView
-        android:id="@+id/btdel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00C40505"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline14"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
         android:layout_width="wrap_content"
@@ -59,18 +49,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="50dp" />
 
-    <ImageView
-        android:id="@+id/btsave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline14"
-        app:layout_constraintStart_toStartOf="@+id/guideline13"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_save" />
-
     <TextView
-        android:id="@+id/idMov"
+        android:id="@+id/idAlma"
         android:layout_width="70dp"
         android:layout_height="25dp"
         android:text="TextView"
@@ -92,9 +72,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline20" />
 
     <TextView
         android:id="@+id/almaVol"
@@ -164,16 +144,16 @@
         android:id="@+id/almaView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Producto:"
+        android:text="Nombre:"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
     <TextView
-        android:id="@+id/almaView"
+        android:id="@+id/almaVolView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Almacen:"
+        android:text="Volúmen:"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
@@ -182,7 +162,7 @@
         android:id="@+id/cantEstibaView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tipo:"
+        android:text="Cant. Estiba:"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline15" />
@@ -191,7 +171,7 @@
         android:id="@+id/capPesoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cantidad:"
+        android:text="Cap. Peso:"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
@@ -200,7 +180,7 @@
         android:id="@+id/costoView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Costo:"
+        android:text="Costo Op.:"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline19" />
@@ -225,10 +205,10 @@
         android:id="@+id/descripc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Descripción"
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        android:text="Descripción:"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
         app:layout_constraintStart_toStartOf="@+id/guideline21"
-        app:layout_constraintTop_toTopOf="@+id/guideline20" />
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
@@ -242,8 +222,33 @@
         android:layout_width="86dp"
         android:layout_height="19dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        app:layout_constraintBottom_toTopOf="@+id/guideline32"
         app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+
+    <TextView
+        android:id="@+id/almaNomView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline12"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="416dp" />
+
+    <TextView
+        android:id="@+id/localeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Locales:"
+        app:layout_constraintBottom_toTopOf="@+id/guideline28"
+        app:layout_constraintStart_toStartOf="@+id/guideline21"
         app:layout_constraintTop_toTopOf="@+id/guideline20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

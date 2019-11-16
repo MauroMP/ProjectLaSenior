@@ -1,19 +1,15 @@
 package com.example.lasenioralmacenes;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.icu.util.Calendar;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,14 +19,12 @@ import android.widget.Toast;
 
 import com.example.lasenioralmacenes.Fragments.DateFragments;
 import com.example.lasenioralmacenes.Interfaces.RestMovs;
-import com.example.lasenioralmacenes.Interfaces.RestUsu;
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
 import com.example.lasenioralmacenes.Modelos.Producto;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,7 +74,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         fecha = findViewById(R.id.etFecha);
         cant = findViewById(R.id.eTCant);
         descip = findViewById(R.id.eTDescrip);
-        btAtras = findViewById(R.id.btAtras);
+        btAtras = findViewById(R.id.btAtrasA);
 
 
         getProds();

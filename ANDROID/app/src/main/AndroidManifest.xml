@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Addmov_Activity"></activity>
+        <activity android:name=".Almacenamientos_Activity"></activity>
+        <activity android:name=".AlmaActivity" />
+        <activity android:name=".Addmov_Activity" />
         <activity android:name=".MovActivity" />
         <activity android:name=".Movimientos_Activity" />
         <activity android:name=".Menu_Activity" />
@@ -20,7 +22,6 @@
         <activity android:name=".activity_Producto" />
         <activity android:name=".PrdActivity" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

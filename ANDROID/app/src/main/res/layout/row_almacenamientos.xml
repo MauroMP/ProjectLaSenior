@@ -18,14 +18,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="216dp" />
+        app:layout_constraintGuide_begin="178dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="97dp" />
+        app:layout_constraintGuide_begin="104dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -60,24 +60,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/CostoOp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-    <TextView
         android:id="@+id/aLocale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/guideline29"
+        app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -85,33 +74,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="100dp" />
-
-    <TextView
-        android:id="@+id/almaCantEs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintStart_toStartOf="@+id/guideline29"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-    <TextView
-        android:id="@+id/almaVol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline9"
-        app:layout_constraintStart_toStartOf="@+id/guideline31"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-    <TextView
-        android:id="@+id/almaCapPeso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/guideline30"
-        app:layout_constraintStart_toStartOf="@+id/guideline29"
-        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -133,8 +95,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@+id/guideline29"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -142,6 +103,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="79dp" />
+        app:layout_constraintGuide_begin="94dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

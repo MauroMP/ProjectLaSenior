@@ -12,11 +12,9 @@ import android.widget.Toast;
 
 import com.example.lasenioralmacenes.Adapters.MovimientosAdapter;
 import com.example.lasenioralmacenes.Interfaces.RestMovs;
-import com.example.lasenioralmacenes.Interfaces.RestUsu;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
 import com.example.lasenioralmacenes.Modelos.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +35,7 @@ public class Movimientos_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos_);
 
-        btmovs = findViewById(R.id.btListamovs);
+        btmovs = findViewById(R.id.btListalmas);
         listmovs = findViewById(R.id.listmov);
         btcrear = findViewById(R.id.btCrear);
 

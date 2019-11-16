@@ -2,7 +2,6 @@ package com.example.lasenioralmacenes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -43,19 +42,19 @@ public class MovActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mov);
 
-        Bundle bundle = new Bundle();
+        Bundle bundle;
         bundle = getIntent().getExtras();
 
         tidMov = findViewById(R.id.idMov);
-        tcosto = findViewById(R.id.Costo);
-        tcant = findViewById(R.id.cantidad);
-        tprod = findViewById(R.id.Producto);
-        talma = findViewById(R.id.Almacen);
-        ttipo = findViewById(R.id.tipo);
+        tcosto = findViewById(R.id.CostoOp);
+        tcant = findViewById(R.id.almaCapPeso);
+        tprod = findViewById(R.id.aLocale);
+        talma = findViewById(R.id.almaVol);
+        ttipo = findViewById(R.id.almaCantEs);
         txDescrip = findViewById(R.id.txtDescrip);
         del = findViewById(R.id.btdel);
         save = findViewById(R.id.btsave);
-        btAtras = findViewById(R.id.btAtras);
+        btAtras = findViewById(R.id.btAtrasA);
 
 
         final Movimiento mov = (Movimiento)bundle.getSerializable("movid");

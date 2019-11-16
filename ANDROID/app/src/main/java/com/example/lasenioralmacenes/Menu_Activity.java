@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.lasenioralmacenes.Modelos.Almacenamiento;
 import com.example.lasenioralmacenes.Modelos.Usuario;
 
 import java.io.Serializable;
 
 public class Menu_Activity extends AppCompatActivity {
+
 
     private Button btProductos;
     private Button btMovimientos;
@@ -43,7 +45,7 @@ public class Menu_Activity extends AppCompatActivity {
     });
 
 
-    Bundle bundle = new Bundle();
+    Bundle bundle;
     bundle = getIntent().getExtras();
         usu = (Usuario) bundle.getSerializable("Usuario");
 
@@ -67,6 +69,15 @@ public class Menu_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Menu_Activity.this, Movimientos_Activity.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
+            }
+        });
+
+        btReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Menu_Activity.this, Almacenamientos_Activity.class);
                 intent.putExtra("Usuario", (Serializable)usu);
                 startActivity(intent);
             }
