@@ -35,7 +35,7 @@ public class Movimientos_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos_);
 
-        btmovs = findViewById(R.id.btListalmas);
+        btmovs = findViewById(R.id.btListmovs);
         listmovs = findViewById(R.id.listmov);
         btcrear = findViewById(R.id.btCrear);
 

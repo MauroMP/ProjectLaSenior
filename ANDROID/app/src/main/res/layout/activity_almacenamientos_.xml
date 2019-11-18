@@ -8,6 +8,7 @@
 
     <Button
         android:id="@+id/btListalmas"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="244dp"
         android:layout_height="54dp"
         android:text="Listar Almacenes"
@@ -25,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline27" />
+        app:layout_constraintTop_toTopOf="@+id/guideline33" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"

@@ -58,11 +58,11 @@ public class Almacenamientos_Activity extends AppCompatActivity {
         idF = findViewById(R.id.idFinal);
 
 
-        Bundle bundle = new Bundle();
+       /* Bundle bundle;
         bundle = getIntent().getExtras();
-        usu = (Usuario) bundle.getSerializable("Usuario");
+        //usu = (Usuario) bundle.getSerializable("Usuario");
         String in = (String)bundle.getSerializable("mensaje");
-        String ex = (String)bundle.getSerializable("msgCrear");
+        String ex = (String)bundle.getSerializable("msgCrear");*/
 
         btalmas.setOnClickListener(new View.OnClickListener() {
             @Override

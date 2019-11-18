@@ -78,7 +78,6 @@ public class Menu_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Menu_Activity.this, Almacenamientos_Activity.class);
-                intent.putExtra("Usuario", (Serializable)usu);
                 startActivity(intent);
             }
         });
