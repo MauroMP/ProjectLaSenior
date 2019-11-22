@@ -13,8 +13,6 @@ import androidx.annotation.NonNull;
 
 import com.example.lasenioralmacenes.AlmaActivity;
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
-import com.example.lasenioralmacenes.Modelos.Movimiento;
-import com.example.lasenioralmacenes.MovActivity;
 import com.example.lasenioralmacenes.R;
 
 import java.util.Date;
@@ -41,7 +39,7 @@ public class AlmacenamientosAdapter extends ArrayAdapter {
 
         TextView almaId = rowView.findViewById(R.id.ids);
         TextView almaNombre = rowView.findViewById(R.id.txtNombreA);
-        TextView almaDescrip = rowView.findViewById(R.id.almadescrip);
+        TextView almaDescrip = rowView.findViewById(R.id.movdescrip);
         TextView almaLocale = rowView.findViewById(R.id.aLocale);
         //TextView almaCosto = rowView.findViewById(R.id.CostoOp);
         //TextView almaCapPeso = rowView.findViewById(R.id.almaCapPeso);

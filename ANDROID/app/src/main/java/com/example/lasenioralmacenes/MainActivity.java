@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,17 +21,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView jsonTextview;
+
     private TextView NombreUsu;
     private TextView PassUsu;
-    private Button inicioS;
+    private ImageView inicioS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        jsonTextview = findViewById(R.id.jsonText);
+
         NombreUsu =findViewById(R.id.Nomusu);
         PassUsu = findViewById(R.id.Pass);
         inicioS = findViewById(R.id.buttonIS);
@@ -67,15 +68,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if(!response.isSuccessful()){
-                    jsonTextview.setText("Codigo" + response.code());
+
+                    Toast.makeText(MainActivity.this, "Codigo" + response.code(), Toast.LENGTH_LONG).show();
                 return;
                 }
                 Usuario usu = response.body();
                 if(!usu.getUsuNombre().equals("Usuario")){
                     if(usu.getUsuPassword().equals(PassUsu.getText().toString())) {
 
-                        jsonTextview.setText(usu.getUsuNombre() + "\n"
-                                + usu.getUsuApellido() + "\n" + usu.getUsuCorreo());
                         Intent intent = new Intent(MainActivity.this, Menu_Activity.class);
                         intent.putExtra("Usuario", usu);
                         startActivity(intent);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-                jsonTextview.setText(t.getMessage());
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 

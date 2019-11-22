@@ -28,8 +28,6 @@ public class MovActivity extends AppCompatActivity {
     private TextView ttipo;
     private TextView txDescrip;
     private ImageView del;
-    private ImageView save;
-    private ImageView update;
     private ImageView btAtras;
     Retrofit retrofit;
     RestMovs restMov;
@@ -53,7 +51,6 @@ public class MovActivity extends AppCompatActivity {
         ttipo = findViewById(R.id.almaCantEs);
         txDescrip = findViewById(R.id.txtDescrip);
         del = findViewById(R.id.btdel);
-        save = findViewById(R.id.btsave);
         btAtras = findViewById(R.id.btAtrasA);
 
 
@@ -111,31 +108,6 @@ public class MovActivity extends AppCompatActivity {
                 });
 
 
-        save.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        Call<Movimiento> dmov = restMov.updateMov(mov);
-
-                        dmov.enqueue(new Callback<Movimiento>() {
-                            @Override
-                            public void onResponse(Call<Movimiento> call, Response<Movimiento> response) {
-                                if (!response.isSuccessful()){
-                                    Toast.makeText(MovActivity.this, "Codigo" + response.code(), Toast.LENGTH_LONG).show();
-                                    return;
-                                }
-                                Toast.makeText(MovActivity.this, "Movimiento actualizado", Toast.LENGTH_LONG).show();
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<Movimiento> call, Throwable t) {
-
-                            }
-                        });
-
-                    }
-                });
 
     }
 

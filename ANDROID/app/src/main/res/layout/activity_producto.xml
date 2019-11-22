@@ -5,6 +5,7 @@
     android:id="@+id/listprd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".activity_Producto"
     tools:showIn="@layout/activity_producto">

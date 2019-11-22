@@ -44,7 +44,7 @@ public class MovimientosAdapter extends ArrayAdapter {
         TextView movProducto = rowView.findViewById(R.id.aLocale);
         TextView movAlmacen = rowView.findViewById(R.id.almaVol);
         TextView movTipo = rowView.findViewById(R.id.almaCantEs);
-        TextView movDescrip = rowView.findViewById(R.id.almadescrip);
+        TextView movDescrip = rowView.findViewById(R.id.movdescrip);
         final Date date = listmovs.get(posicion).getMovFecha();
 
 

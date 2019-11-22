@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
@@ -16,12 +17,12 @@ import java.io.Serializable;
 public class Menu_Activity extends AppCompatActivity {
 
 
-    private Button btProductos;
-    private Button btMovimientos;
-    private Button btReportes;
+    private ImageView btProductos;
+    private ImageView btMovimientos;
+    private ImageView btReportes;
     private Usuario usu;
     private TextView textUsu;
-    private Button btSalir;
+    private ImageView btSalir;
 
 
     @Override
@@ -30,7 +31,7 @@ public class Menu_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_);
     btProductos = findViewById(R.id.btProductos);
     btMovimientos = findViewById(R.id.btMovimientos);
-    btReportes = findViewById(R.id.btAlmacenes);
+    btReportes = findViewById(R.id.btReportes);
     textUsu = findViewById(R.id.textUsuario);
     btSalir = findViewById(R.id.btSalir);
 

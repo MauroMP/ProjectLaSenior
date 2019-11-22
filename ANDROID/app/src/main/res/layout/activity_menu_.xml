@@ -4,78 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo"
     tools:context=".Menu_Activity">
 
-    <Button
-        android:id="@+id/btProductos"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="215dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="94dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="620dp"
-        android:text="Productos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btMovimientos"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="215dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="170dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="542dp"
-        android:text="Movimientos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btAlmacenes"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="215dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="89dp"
-        android:layout_marginTop="246dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="468dp"
-        android:text="Almacenes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="170dp"
-        android:layout_marginTop="358dp"
-        android:layout_marginEnd="194dp"
-        android:layout_marginBottom="354dp"
         android:text="Usuario"
+        android:textColor="#FCFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.716" />
 
-    <Button
+    <ImageView
         android:id="@+id/btSalir"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="146dp"
-        android:layout_height="56dp"
-        android:backgroundTint="#2D3FA3"
-        android:text="Salir"
+        android:layout_width="74dp"
+        android:layout_height="79dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.874"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textUsuario" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.923"
+        app:srcCompat="@drawable/logout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="50dp" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="85dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline41"
+        app:layout_constraintTop_toBottomOf="@+id/textUsuario"
+        app:layout_constraintVertical_bias="0.496"
+        app:srcCompat="@drawable/logos" />
+
+    <ImageView
+        android:id="@+id/btProductos"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintStart_toStartOf="@+id/guideline41"
+        app:srcCompat="@drawable/box" />
+
+    <ImageView
+        android:id="@+id/btMovimientos"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline44"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline43"
+        app:srcCompat="@drawable/movimiento" />
+
+    <ImageView
+        android:id="@+id/btReportes"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline41"
+        app:layout_constraintTop_toTopOf="@+id/guideline44"
+        app:srcCompat="@drawable/reporte" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="200dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="150dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline44"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="280dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
