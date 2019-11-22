@@ -25,10 +25,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Movimientos_Activity extends AppCompatActivity {
 
-    Button btmovs;
+    private ImageView btmovs;
     ListView listmovs;
     Usuario usu;
-    ImageView btcrear;
+    private ImageView btcrear;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
