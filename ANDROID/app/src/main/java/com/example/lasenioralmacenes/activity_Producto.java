@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class activity_Producto extends AppCompatActivity {
 
-    private Button buscarP;
+    private ImageView buscarP;
     private ListView listaprod;
     private Usuario usu;
 

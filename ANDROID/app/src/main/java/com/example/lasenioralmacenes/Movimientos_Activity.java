@@ -29,7 +29,7 @@ public class Movimientos_Activity extends AppCompatActivity {
     ListView listmovs;
     Usuario usu;
     private ImageView btcrear;
-    
+    private ImageView btatras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class Movimientos_Activity extends AppCompatActivity {
         btmovs = findViewById(R.id.btListmovs);
         listmovs = findViewById(R.id.listmov);
         btcrear = findViewById(R.id.btCrear);
+        btatras = findViewById(R.id.btAtrasA2);
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
@@ -60,6 +61,13 @@ public class Movimientos_Activity extends AppCompatActivity {
                 Intent intent = new Intent(Movimientos_Activity.this, Addmov_Activity.class);
                 startActivity(intent);
 
+            }
+        });
+        btatras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Movimientos_Activity.this, Menu_Activity.class);
+                startActivity(intent);
             }
         });
 

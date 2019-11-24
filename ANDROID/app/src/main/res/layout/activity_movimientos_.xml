@@ -10,11 +10,13 @@
 
     <ImageView
         android:id="@+id/btAtrasA2"
-        android:layout_width="55dp"
-        android:layout_height="48dp"
-        app:srcCompat="@drawable/atras"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/atras" />
 
     <ListView
         android:id="@+id/listmov"
@@ -30,23 +32,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="116dp" />
+        app:layout_constraintGuide_begin="130dp" />
 
     <ImageView
         android:id="@+id/btListmovs"
-        android:layout_width="85dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/List"
-        tools:layout_editor_absoluteX="199dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
+        app:layout_constraintEnd_toStartOf="@+id/btCrear"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/list" />
 
     <ImageView
         android:id="@+id/btCrear"
-        android:layout_width="85dp"
-        android:layout_height="70dp"
-        app:srcCompat="@drawable/add"
-        tools:layout_editor_absoluteX="310dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline27"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
