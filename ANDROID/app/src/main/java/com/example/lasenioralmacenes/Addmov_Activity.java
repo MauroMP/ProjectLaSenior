@@ -297,7 +297,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             }
             else {
             Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
-            msgError = "Debe ingresar cantidad";
+
 
         }
 
@@ -377,14 +377,14 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         Double st;
         String s = cant.getText().toString();
         if(s.equals("")){
-            Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
-
+           Toast.makeText(Addmov_Activity.this, "Debe ingresar cantidad", Toast.LENGTH_SHORT).show();
+            msgError = "Debe ingresar cantidad";
         }else {
             c = Double.parseDouble(s);
-            Toast.makeText(Addmov_Activity.this, "Cantidad " + s, Toast.LENGTH_SHORT).show();
             stockP=prod.getProdStktotal();
             if(stockP!=null) {
                 if (stockP < c) {
+                    msgError = "No tiene stock suficiente, tiene: " + stockP.toString();
                     Toast.makeText(Addmov_Activity.this, "No tiene stock suficiente, tiene: " + stockP.toString(), Toast.LENGTH_SHORT).show();
 
                 } else {

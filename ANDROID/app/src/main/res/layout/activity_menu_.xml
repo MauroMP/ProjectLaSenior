@@ -9,6 +9,28 @@
 
 
     <TextView
+        android:id="@+id/reportes"
+        android:layout_width="130dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:text="Reportes"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline44" />
+
+    <TextView
+        android:id="@+id/productos"
+        android:layout_width="130dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="20dp"
+        android:text="Productos"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline43"
+        app:layout_constraintStart_toStartOf="@+id/guideline42" />
+
+    <TextView
         android:id="@+id/textUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,10 +38,10 @@
         android:textColor="#FCFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.137"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.716" />
+        app:layout_constraintVertical_bias="0.757" />
 
     <ImageView
         android:id="@+id/btSalir"
@@ -95,6 +117,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="280dp" />
+
+    <TextView
+        android:id="@+id/Movimientos"
+        android:layout_width="130dp"
+        android:layout_height="56dp"
+        android:text="Movimientos"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline44"
+        app:layout_constraintStart_toStartOf="@+id/guideline41"
+        app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
