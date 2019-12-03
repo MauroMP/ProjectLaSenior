@@ -1,5 +1,6 @@
 package com.example.lasenioralmacenes;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.lasenioralmacenes.Adapters.ProductosAdapter;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class activity_Producto extends AppCompatActivity {
 
-    private ImageView buscarP;
+    private ImageView btatras;
     private ListView listaprod;
     private Usuario usu;
+    private ImageView btCrear;
+    public static String nomusup;
 
 
     @Override
@@ -38,22 +42,48 @@ public class activity_Producto extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_producto);
 
-        buscarP = findViewById(R.id.btnListaProd);
+        btatras = findViewById(R.id.btAtrasA3);
         listaprod = findViewById(R.id.listprods);
+        btCrear = findViewById(R.id.btnNvoProd);
+
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
         usu = (Usuario) bundle.getSerializable("Usuario");
        // String in = (String)bundle.getSerializable("mensaje");
        // String ex = (String)bundle.getSerializable("msgCrear");
+        nomusup = usu.getUsuNombre();
+        ObtTodosProd();
 
-        buscarP.setOnClickListener(new View.OnClickListener() {
+        /*buscarP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ObtTodosProd();
             }
 
+        });*/
+
+        btatras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_Producto.this, Menu_Activity.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
+                finish();
+            }
         });
+
+
+        btCrear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity_Producto.this, activity_altaprodu.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void ObtTodosProd() {
@@ -86,6 +116,12 @@ public class activity_Producto extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(MainActivity.this, "Por favor ingrese credenciales", Toast.LENGTH_LONG).show();
+        //finish();
     }
 
 }

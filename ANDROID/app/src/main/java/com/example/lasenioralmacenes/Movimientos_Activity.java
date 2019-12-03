@@ -15,6 +15,7 @@ import com.example.lasenioralmacenes.Interfaces.RestMovs;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
 import com.example.lasenioralmacenes.Modelos.Usuario;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,36 +31,43 @@ public class Movimientos_Activity extends AppCompatActivity {
     Usuario usu;
     private ImageView btcrear;
     private ImageView btatras;
+    public static String nomusum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movimientos_);
 
-        btmovs = findViewById(R.id.btListmovs);
+        //btmovs = findViewById(R.id.btListmovs);
         listmovs = findViewById(R.id.listmov);
         btcrear = findViewById(R.id.btCrear);
         btatras = findViewById(R.id.btAtrasA2);
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
-        //usu = (Usuario) bundle.getSerializable("Usuario");
+        usu = (Usuario)bundle.getSerializable("Usuario");
         String in = (String)bundle.getSerializable("mensaje");
-        String ex = (String)bundle.getSerializable("msgCrear");
+        nomusum = usu.getUsuNombre();
 
-        btmovs.setOnClickListener(new View.OnClickListener() {
+        Toast.makeText(Movimientos_Activity.this, in, Toast.LENGTH_LONG).show();
+
+        listarMovs();
+
+        /*btmovs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listarMovs();
 
             }
-        });
+        });*/
 
         btcrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Movimientos_Activity.this, Addmov_Activity.class);
+                intent.putExtra("Usuario", (Serializable)usu);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -67,7 +75,9 @@ public class Movimientos_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Movimientos_Activity.this, Menu_Activity.class);
+                intent.putExtra("Usuario", (Serializable)usu);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -106,5 +106,15 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonIS"
         app:srcCompat="@drawable/logos" />
 
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="56dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="104dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline40"
+        app:layout_constraintTop_toTopOf="@+id/guideline39"
+        app:srcCompat="@drawable/close" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

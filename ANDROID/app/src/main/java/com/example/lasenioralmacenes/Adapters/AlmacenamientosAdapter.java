@@ -2,28 +2,46 @@ package com.example.lasenioralmacenes.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
 import com.example.lasenioralmacenes.AlmaActivity;
+import com.example.lasenioralmacenes.Almacenamientos_Activity;
+
+import com.example.lasenioralmacenes.Interfaces.RestUsu;
+
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
+import com.example.lasenioralmacenes.Modelos.Usuario;
 import com.example.lasenioralmacenes.R;
 
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static java.text.DateFormat.getDateInstance;
 
-public class AlmacenamientosAdapter extends ArrayAdapter {
+public class AlmacenamientosAdapter extends ArrayAdapter{
 
     private Context context;
     private List<Almacenamiento> listalmas;
+    Usuario usu;
+    String usus = Almacenamientos_Activity.nomusu;
+
 
     public AlmacenamientosAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Almacenamiento> objects) {
         super(context, resource, objects);
@@ -32,14 +50,17 @@ public class AlmacenamientosAdapter extends ArrayAdapter {
 
     }
 
+
     public View getView ( final int posicion, View convertView, ViewGroup parent   ){
 
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.row_almacenamientos, parent, false);
 
+        callUsu(usus);
+
         TextView almaId = rowView.findViewById(R.id.ids);
         TextView almaNombre = rowView.findViewById(R.id.txtNombreA);
-        TextView almaDescrip = rowView.findViewById(R.id.movdescrip);
+        TextView almaDescrip = rowView.findViewById(R.id.almadescrip);
         TextView almaLocale = rowView.findViewById(R.id.aLocale);
         //TextView almaCosto = rowView.findViewById(R.id.CostoOp);
         //TextView almaCapPeso = rowView.findViewById(R.id.almaCapPeso);
@@ -66,12 +87,15 @@ public class AlmacenamientosAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
 
+
                 Almacenamiento alma = new Almacenamiento();
                 alma.setAlmaNombre(listalmas.get(posicion).getAlmaNombre());
 
                 Intent intent = new Intent(context, AlmaActivity.class);
                 intent.putExtra("almaNombre", alma );
+                intent.putExtra("Usuario", (Serializable)usu);
                 context.startActivity(intent);
+                ((Almacenamientos_Activity)context).finish();
 
             }
         });
@@ -91,5 +115,35 @@ public class AlmacenamientosAdapter extends ArrayAdapter {
         }
         return fecha;
     }
+
+    private void callUsu (String nombre) {
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://dominio.ddns.net:8086/ProyectoRest/rest/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RestUsu restUsu = retrofit.create(RestUsu.class);
+
+        Call<Usuario> usuarioCall = restUsu.getUsuario(nombre);
+
+        usuarioCall.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                usu = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
 }

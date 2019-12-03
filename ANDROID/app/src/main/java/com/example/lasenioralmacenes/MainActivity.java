@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView NombreUsu;
     private TextView PassUsu;
     private ImageView inicioS;
+    private ImageView btclose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         NombreUsu =findViewById(R.id.Nomusu);
         PassUsu = findViewById(R.id.Pass);
         inicioS = findViewById(R.id.buttonIS);
+        btclose = findViewById(R.id.close);
 
 
         inicioS.setOnClickListener(new View.OnClickListener() {
@@ -45,12 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     String m = NombreUsu.getText().toString();
-                    Toast.makeText(MainActivity.this, m, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MainActivity.this, m, Toast.LENGTH_LONG).show();
                     getUsu(m);
                 }
 
             }
          } );
+
+        btclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
 
     }
 
@@ -80,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("Usuario", usu);
                         startActivity(intent);
                         Toast.makeText(MainActivity.this, "Bienvenido " + usu.getUsuNombre(), Toast.LENGTH_LONG).show();
+                        finish();
 
                     }else{
                         Toast.makeText(MainActivity.this, "Usuario o Contraseña incorrecta", Toast.LENGTH_LONG).show();
@@ -102,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(MainActivity.this, "Por favor ingrese credenciales", Toast.LENGTH_LONG).show();
+       // finish();
+    }
 
 
 

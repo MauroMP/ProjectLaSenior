@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.example.lasenioralmacenes.Interfaces.RestAlmas;
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
+import com.example.lasenioralmacenes.Modelos.Usuario;
 
+import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,6 +34,7 @@ public class AlmaActivity extends AppCompatActivity {
     private TextView descripA;
     private TextView locale;
     private ImageView btAtras;
+    Usuario usu;
 
 
     Retrofit retrofit = new Retrofit.Builder()
@@ -57,8 +60,20 @@ public class AlmaActivity extends AppCompatActivity {
 
         Bundle bundle;
         bundle = getIntent().getExtras();
+        usu = (Usuario)bundle.getSerializable("Usuario");
+
 
         final Almacenamiento almad = (Almacenamiento)bundle.getSerializable("almaNombre");
+
+        btAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AlmaActivity.this, Almacenamientos_Activity.class);
+                intent.putExtra("Usuario", usu);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         Call<Almacenamiento> almacenamientoCall = restAlmas.getAlma(almad.getAlmaNombre());
         almacenamientoCall.enqueue(new Callback<Almacenamiento>() {
@@ -88,17 +103,12 @@ public class AlmaActivity extends AppCompatActivity {
 
             }
         });
-        btAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AlmaActivity.this, Almacenamientos_Activity.class);
-                startActivity(intent);
-            }
-        });
 
+    }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(MainActivity.this, "Por favor ingrese credenciales", Toast.LENGTH_LONG).show();
+        //finish();
     }
 }

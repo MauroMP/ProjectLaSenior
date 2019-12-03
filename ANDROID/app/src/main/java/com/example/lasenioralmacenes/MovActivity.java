@@ -2,6 +2,8 @@ package com.example.lasenioralmacenes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.lasenioralmacenes.Interfaces.RestMovs;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
+import com.example.lasenioralmacenes.Modelos.Producto;
+import com.example.lasenioralmacenes.Modelos.Usuario;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +36,9 @@ public class MovActivity extends AppCompatActivity {
     Retrofit retrofit;
     RestMovs restMov;
     Movimiento movimiento;
-    boolean borrado;
+    Usuario usu;
+    private boolean borrado;
+    private boolean setstk = false;
 
 
     @Override
@@ -42,6 +48,8 @@ public class MovActivity extends AppCompatActivity {
 
         Bundle bundle;
         bundle = getIntent().getExtras();
+        usu = (Usuario)bundle.getSerializable("Usuario");
+
 
         tidMov = findViewById(R.id.idMov);
         tcosto = findViewById(R.id.CostoOp);
@@ -92,17 +100,42 @@ public class MovActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MovActivity.this, Movimientos_Activity.class);
+                intent.putExtra("Usuario", usu);
                 startActivity(intent);
+                finish();
             }
         });
+
 
 
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(MovActivity.this, "Movimiento: " + movimiento.getMovId().toString(), Toast.LENGTH_LONG).show();
-                deleteMov(movimiento);
+                //Toast.makeText(MovActivity.this, "Movimiento: " + movimiento.getMovId().toString(), Toast.LENGTH_LONG).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MovActivity.this);
+                builder.setMessage(R.string.dialog_message)
+                        .setTitle(R.string.dialog_title);
+
+                // Add the buttons
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deleteMov(movimiento);
+                    }
+                });
+                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast.makeText(MovActivity.this, "No se borro movimiento: " + movimiento.getMovId().toString(), Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+                    }
+                });
+                builder.setCancelable(false);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+                // deleteMov(movimiento);
 
             }
                 });
@@ -124,10 +157,16 @@ public class MovActivity extends AppCompatActivity {
                 }
                 Toast.makeText( MovActivity.this, "Movimiento eliminado", Toast.LENGTH_LONG).show();
                 borrado = true;
-                Intent intent = new Intent(MovActivity.this, Movimientos_Activity.class);
-                intent.putExtra("mensaje", "Movimiento Eliminado");
-                startActivity(intent);
-
+                updStock();
+                if(setstk) {
+                    Intent intent = new Intent(MovActivity.this, Movimientos_Activity.class);
+                    intent.putExtra("mensaje", "Movimiento Eliminado");
+                    intent.putExtra("Usuario", usu);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText( MovActivity.this, "Hubo algún problemita", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
@@ -139,10 +178,45 @@ public class MovActivity extends AppCompatActivity {
 
     }
 
+    public void updStock() {
+        Producto prod = movimiento.getProducto();
+        if (borrado) {
+            Double stp = prod.getProdStktotal();
+            Double cantm = movimiento.getMovCantidad();
+            Double stT = stp + cantm;
+            prod.setProdStktotal(stT);
+            setprod(prod);
+        }
+    }
+
+        public void setprod (Producto producto){
+
+            Call<Producto> productoCall = restMov.setProdStock(producto);
+            productoCall.enqueue(new Callback<Producto>() {
+                @Override
+                public void onResponse(Call<Producto> call, Response<Producto> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(MovActivity.this, "Código: " + response.code(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Toast.makeText(MovActivity.this, "Movimiento borrado y Producto actualizado", Toast.LENGTH_SHORT).show();
+                    setstk = true;
+
+                }
+
+                @Override
+                public void onFailure(Call<Producto> call, Throwable t) {
+
+                }
+            });
+        }
+
+
+
+    }
 
 
 
 
 
 
-}

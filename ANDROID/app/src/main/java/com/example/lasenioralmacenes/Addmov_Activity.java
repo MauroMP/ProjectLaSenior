@@ -22,7 +22,9 @@ import com.example.lasenioralmacenes.Interfaces.RestMovs;
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
 import com.example.lasenioralmacenes.Modelos.Movimiento;
 import com.example.lasenioralmacenes.Modelos.Producto;
+import com.example.lasenioralmacenes.Modelos.Usuario;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -52,6 +54,8 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
     private String stock;
     private Double stockP;
     private String msgError;
+    private String ex;
+    Usuario usu;
 
     Movimiento movg = new Movimiento();
     Retrofit retrofit = new Retrofit.Builder()
@@ -59,6 +63,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     RestMovs restMov = retrofit.create(RestMovs.class);
+
 
 
     @Override
@@ -76,16 +81,24 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
         descip = findViewById(R.id.eTDescrip);
         btAtras = findViewById(R.id.btAtrasA);
 
+        Bundle bundle;
+        bundle = getIntent().getExtras();
+        usu = (Usuario)bundle.getSerializable("Usuario");
+
 
         getProds();
         getAlmas();
         getTipo();
 
+
+
         btAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
+                intent.putExtra("Usuario", usu);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -103,7 +116,12 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
             @Override
             public void onClick(View view) {
                 if(guardarMov()) {
-                    Toast.makeText(Addmov_Activity.this, "Nuevo Movimiento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Addmov_Activity.this, "Movimiento creado con exito!!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
+                    intent.putExtra("mensaje", ex);
+                    intent.putExtra("Usuario", usu);
+                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(Addmov_Activity.this, "Error con algún dato al intentar crear el movimiento " + "\n" + msgError, Toast.LENGTH_SHORT).show();
                 }
@@ -329,11 +347,8 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
                         Toast.makeText(Addmov_Activity.this, "Código: " + response.code(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    String ex = "Movimiento creado con exito!!";
-                    Toast.makeText(Addmov_Activity.this, "Movimiento fue creado con exito!!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Addmov_Activity.this, Movimientos_Activity.class);
-                    intent.putExtra("msgCrear", ex);
-                    startActivity(intent);
+                    ex = "Movimiento creado con exito!!";
+
 
                 }
 
@@ -344,6 +359,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
                 }
             });
+            setprod(prod);
             guarda = true;
         }
         return guarda;
@@ -359,7 +375,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
                     Toast.makeText(Addmov_Activity.this, "Código: " + response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Toast.makeText(Addmov_Activity.this, "Producto actualizado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Addmov_Activity.this, "Movimiento creado y Producto actualizado", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -389,10 +405,7 @@ public class Addmov_Activity extends AppCompatActivity implements DatePickerDial
 
                 } else {
                     st = stockP - c;
-                    Producto eprod;
-                    eprod = prod;
-                    eprod.setProdStktotal(st);
-                    setprod(eprod);
+                    prod.setProdStktotal(st);
                     gt = true;
                 }
         }

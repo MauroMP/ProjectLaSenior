@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lasenioralmacenes.Interfaces.RestProd;
 import com.example.lasenioralmacenes.Modelos.Producto;
+import com.example.lasenioralmacenes.Modelos.Usuario;
+
+import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,10 +34,12 @@ public class PrdActivity extends AppCompatActivity {
     private ImageView del;
     private ImageView save;
     private ImageView update;
+    private ImageView btAtras;
     Retrofit retrofit;
     RestProd restprod;
     Producto producto;
     boolean borrado;
+    Usuario usu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +48,21 @@ public class PrdActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle = getIntent().getExtras();
+        usu = (Usuario)bundle.getSerializable("Usuario");
 
-        idp = findViewById(R.id.idp);
-        nombre = findViewById(R.id.nombre);
-        precio = findViewById(R.id.precio);
-        peso = findViewById(R.id.peso);
-        fvenc = findViewById(R.id.FVen);
-        palma = findViewById(R.id.PAlma);
-        pfami = findViewById(R.id.PFami);
-        stockT = findViewById(R.id.StockT);
+        idp = findViewById(R.id.eTid);
+        nombre = findViewById(R.id.eTNombre);
+        precio = findViewById(R.id.eTPrecio);
+        peso = findViewById(R.id.eTPeso);
+        fvenc = findViewById(R.id.eTFechVen);
+        palma = findViewById(R.id.eTAlma);
+        pfami = findViewById(R.id.eTFami);
+        stockT = findViewById(R.id.eTSTotal);
         del = findViewById(R.id.btdel);
-        save = findViewById(R.id.btsave);
+        btAtras = findViewById(R.id.btAtras10);
+        //save = findViewById(R.id.btsave);
 
-        final Producto prod = (Producto) bundle.getSerializable("prod_id");
+        final Producto prod = (Producto) bundle.getSerializable("prod_nom");
 
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://dominio.ddns.net:8086/ProyectoRest/rest/")
@@ -63,7 +70,7 @@ public class PrdActivity extends AppCompatActivity {
                 .build();
         restprod = retrofit.create(RestProd.class);
 
-        Call<Producto> dpro = restprod.getProdId(prod.getProdId());
+        Call<Producto> dpro = restprod.getProdId(prod.getProdNombre());
 
         dpro.enqueue(new Callback<Producto>() {
             @Override
@@ -90,6 +97,16 @@ public class PrdActivity extends AppCompatActivity {
             }
         });
 
+        btAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrdActivity.this, activity_Producto.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +117,7 @@ public class PrdActivity extends AppCompatActivity {
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        /*save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -124,7 +141,7 @@ public class PrdActivity extends AppCompatActivity {
                 });
 
             }
-        });
+        });*/
     }
 
 
@@ -143,7 +160,9 @@ public class PrdActivity extends AppCompatActivity {
                 borrado = true;
                 Intent intent = new Intent(PrdActivity.this, activity_Producto.class);
                 intent.putExtra("mensaje", "Producto Eliminado");
+                intent.putExtra("Usuario",usu);
                 startActivity(intent);
+                finish();
 
             }
 
@@ -155,5 +174,11 @@ public class PrdActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(MainActivity.this, "Por favor ingrese credenciales", Toast.LENGTH_LONG).show();
+        //finish();
     }
 }

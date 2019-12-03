@@ -11,18 +11,31 @@ import android.widget.TextView;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 
+import com.example.lasenioralmacenes.Interfaces.RestUsu;
 import com.example.lasenioralmacenes.Modelos.Producto;
+import com.example.lasenioralmacenes.Modelos.Usuario;
 import com.example.lasenioralmacenes.PrdActivity;
 import com.example.lasenioralmacenes.R;
+import com.example.lasenioralmacenes.activity_Producto;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static java.text.DateFormat.getDateInstance;
+
 public class ProductosAdapter extends ArrayAdapter {
 
     private Context context;
     private List<Producto> listprod;
+    Usuario usu;
+    String usus = activity_Producto.nomusup;
 
     public ProductosAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Producto> objects) {
         super(context, resource, objects);
@@ -34,6 +47,8 @@ public class ProductosAdapter extends ArrayAdapter {
     public View getView (final int posicion, View convertView, ViewGroup parent   ){
         final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.row_productos, parent, false);
+
+        callUsu(usus);
 
         TextView prodid = rowView.findViewById(R.id.idp);
         TextView prodnom = rowView.findViewById(R.id.nombre);
@@ -62,11 +77,13 @@ public class ProductosAdapter extends ArrayAdapter {
             public void onClick(View view) {
 
                 Producto prd = new Producto();
-                prd.setProdId(listprod.get(posicion).getProdId());
+                prd.setProdNombre(listprod.get(posicion).getProdNombre());
 
                 Intent intent = new Intent(context, PrdActivity.class);
-                intent.putExtra("movprd", prd );
+                intent.putExtra("Usuario", usu);
+                intent.putExtra("prod_nom", prd );
                 context.startActivity(intent);
+                ((activity_Producto)context).finish();
 
             }
         });
@@ -78,12 +95,42 @@ public class ProductosAdapter extends ArrayAdapter {
     private String getFecha(Date date) {
         String fecha;
         if (date != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-            fecha = dateFormat.format(date);
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+            //fecha = dateFormat.format(date);
+            fecha = getDateInstance().format(date);
         } else {
             fecha = "Sin fecha";
         }
         return fecha;
+    }
+
+    private void callUsu (String nombre) {
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://dominio.ddns.net:8086/ProyectoRest/rest/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RestUsu restUsu = retrofit.create(RestUsu.class);
+
+        Call<Usuario> usuarioCall = restUsu.getUsuario(nombre);
+
+        usuarioCall.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+                usu = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

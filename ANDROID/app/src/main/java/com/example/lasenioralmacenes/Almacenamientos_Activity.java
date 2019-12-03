@@ -16,6 +16,7 @@ import com.example.lasenioralmacenes.Interfaces.RestAlmas;
 import com.example.lasenioralmacenes.Modelos.Almacenamiento;
 import com.example.lasenioralmacenes.Modelos.Usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Almacenamientos_Activity extends AppCompatActivity {
 
-    private Button btalmas;
+    public static String nomusu;
+    //private Button btalmas;
+    private ImageView btatras;
     private ImageView btBuscar;
     private ImageView btClean;
     private ListView listalmas;
@@ -50,27 +53,41 @@ public class Almacenamientos_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_almacenamientos_);
 
-        btalmas = findViewById(R.id.btListalmas);
+       // btalmas = findViewById(R.id.btListalmas);
         btClean = findViewById(R.id.btClean);
         listalmas = findViewById(R.id.listalma);
         btBuscar = findViewById(R.id.btBusca);
         idI = findViewById(R.id.IdIni);
         idF = findViewById(R.id.idFinal);
+        btatras = findViewById(R.id.btAtrasAlma);
 
 
-       /* Bundle bundle;
+        Bundle bundle;
         bundle = getIntent().getExtras();
-        //usu = (Usuario) bundle.getSerializable("Usuario");
+        usu = (Usuario) bundle.getSerializable("Usuario");
         String in = (String)bundle.getSerializable("mensaje");
-        String ex = (String)bundle.getSerializable("msgCrear");*/
+        String ex = (String)bundle.getSerializable("msgCrear");
+        nomusu = usu.getUsuNombre();
 
-        btalmas.setOnClickListener(new View.OnClickListener() {
+        /*btalmas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listarAlmas();
 
             }
+        });*/
+
+        btatras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Almacenamientos_Activity.this, Menu_Activity.class);
+                intent.putExtra("Usuario", (Serializable)usu);
+                startActivity(intent);
+                finish();
+            }
         });
+
+        listarAlmas();
 
         btBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,5 +193,11 @@ public class Almacenamientos_Activity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Toast.makeText(MainActivity.this, "Por favor ingrese credenciales", Toast.LENGTH_LONG).show();
+        //finish();
     }
 }

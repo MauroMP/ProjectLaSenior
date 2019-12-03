@@ -12,4 +12,8 @@
     <string name="menu_options">"Menú"</string>
     <string name="nombre_usuario">"Nombre de usuario"</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="ok">si</string>
+    <string name="cancel">no</string>
+    <string name="dialog_message">Desea borrar este movimiento?</string>
+    <string name="dialog_title">Borrar</string>
 </resources>
